@@ -7,7 +7,9 @@ function setupForm() {
   userSubmitButton.addEventListener("click", event => {
     const user = userInput.value;
     if (user && user.length > 2) {
+      userSubmitButton.classList.add("is-loading");
       processUserData(userInput.value).then(data => {
+        userSubmitButton.classList.remove("is-loading");
         localStorage.setItem("malProcessedData", JSON.stringify(data));
         window.location.href = "./charts.html";
       });

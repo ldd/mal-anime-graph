@@ -25,14 +25,57 @@
       ＼(＾O＾)／＼(＾O＾)／＼(＾O＾)／ Please turn on javascript
       ＼(＾O＾)／＼(＾O＾)／＼(＾O＾)／
     </noscript>
-    <div class="box" draggable="true">
-      <p>Drop your XML here</p>
-    </div>
-    <input type="file" id="file-selection-input" />
-    <form id="user-selection-form">
-      <label for="user-selection-input">Choose a valid MAL username: </label>
-      <input type="text" id="user-selection-input" size="10" />
-      <input type="submit" id="user-selection-submit" />
-    </form>
+    <nav
+      id="navbar"
+      class="navbar is-dark"
+      role="navigation"
+      aria-label="main navigation"
+    ></nav>
+    <section class="section" id="file-selection-section">
+      <div class="box" draggable="true">
+        <p>Drop your XML here</p>
+      </div>
+      <div class="file has-name">
+        <label class="file-label">
+          <input
+            type="file"
+            id="file-selection-input"
+            class="file-input"
+            name="resume"
+          />
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+          </span>
+          <span class="file-name">
+            animelist_155146.xml
+          </span>
+        </label>
+      </div>
+    </section>
+    <section class="section" id="user-selection-section">
+      <div class="field">
+        <label class="label">MAL username</label>
+        <div class="control">
+          <input class="input" type="text" id="user-selection-input" />
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button
+            class="button is-light"
+            type="submit"
+            id="user-selection-submit"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </section>
+    <footer class="footer"></footer>
   </body>
 </html>
