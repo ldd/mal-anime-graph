@@ -19,7 +19,9 @@ export function parseMyData(data) {
     type: get(node, "series_type"),
     status: get(node, "my_status"),
     episodes: +get(node, "series_episodes"),
-    episodes_watched: +get(node, "my_watched_episodes")
+    episodesWatched: +get(node, "my_watched_episodes"),
+    // my_times_watched actually tracks how many times you've rewatched a show
+    timesWatched: +get(node, "my_times_watched") + 1
   }));
 }
 

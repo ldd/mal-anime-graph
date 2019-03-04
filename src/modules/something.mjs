@@ -3,14 +3,27 @@ import { updateChart } from "./chart.mjs";
 
 function processAllData(data) {
   return data.reduce(
-    (dic, { startDate: { year }, season, duration = 0 } = {}) => {
+    (
+      dic,
+      {
+        startDate: { year },
+        season,
+        duration = 0,
+        timesWatched = 1,
+        episodes = 0,
+        episodesWatched = 0
+      } = {}
+    ) => {
+      const totalDuration =
+        duration * episodesWatched * 1 +
+        duration * episodes * (timesWatched - 1);
       return {
         ...dic,
         years: { ...dic.years, [year]: (dic.years[year] || 0) + 1 },
         seasons: { ...dic.seasons, [season]: (dic.seasons[season] || 0) + 1 },
         seasonMinutes: {
           ...dic.seasonMinutes,
-          [season]: (dic.seasonMinutes[season] || 0) + duration
+          [season]: (dic.seasonMinutes[season] || 0) + totalDuration
         }
       };
     },
