@@ -1,5 +1,6 @@
 import { createFileSelectors } from "./modules/file.mjs";
 import { processUserData } from "./modules/providers/jikanUserList.mjs";
+import { addNavbar, addFooter } from "./templates/helper.mjs";
 
 function setupForm() {
   const userInput = document.getElementById("user-selection-input");
@@ -19,6 +20,8 @@ function setupForm() {
   });
 }
 window.onload = () => {
+  addNavbar();
+  addFooter();
   createFileSelectors();
   setupForm();
 };
