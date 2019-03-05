@@ -1,5 +1,5 @@
 import { anilist } from "./providers/anilist.mjs";
-import { updateChart } from "./chart.mjs";
+import { updateChart, filterChart } from "./chart.mjs";
 
 function processAllData(data) {
   return data.reduce(
@@ -42,8 +42,9 @@ function updateCharts(data) {
 }
 const debouncedUpdateCharts = debounce(updateCharts, 250, false);
 
+const data = [];
 export async function processCharts(parsedMyData) {
-  const data = [];
+  data.length = 0;
   for (let i = 0; i < parsedMyData.length; i += 1) {
     const datum = parsedMyData[i];
     anilist(datum.id).then(d => {
@@ -51,4 +52,14 @@ export async function processCharts(parsedMyData) {
       debouncedUpdateCharts(processAllData(data));
     });
   }
+}
+
+export function filterChartData(id, filter = () => true) {
+  const allFilteredData = processAllData(data.filter(filter));
+  const chartData = allFilteredData[id];
+  const [labels, innerValues] = [
+    Object.keys(chartData),
+    Object.values(chartData)
+  ];
+  filterChart({ id, labels, data: innerValues });
 }

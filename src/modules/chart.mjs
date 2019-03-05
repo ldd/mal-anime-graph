@@ -84,3 +84,13 @@ export function updateChart({ id, labels = [], data = [] } = {}) {
     chart.update();
   }
 }
+
+export function filterChart({ id, labels = [], data = [] } = {}) {
+  const chart = chartMap.get(id);
+  if (chart && chart.data) {
+    // update data
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+  }
+}
