@@ -14,10 +14,10 @@ async function main() {
 document.addEventListener("DOMContentLoaded", () => {
   addNavbar();
   addFooter();
-  createChart({ id: "years" });
-  createChart({ id: "seasons", type: "pie" });
-  createChart({ id: "seasonMinutes", type: "pie" });
-  addChartOptions("seasonMinutes");
-  addChartOptions("seasons");
+  createChart({ id: "years-count" });
+  createChart({ id: "seasons-duration", type: "pie" });
+  createChart({ id: "seasons-count", type: "pie" });
+  addChartOptions("seasons-duration");
+  addChartOptions("seasons-count");
   main();
 });

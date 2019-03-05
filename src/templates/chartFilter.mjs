@@ -1,5 +1,5 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { filterChartData } from "../modules/something.mjs";
+import { updateByFilter } from "../modules/something.mjs";
 
 const ID_BASE = "filter-dropdown";
 
@@ -12,7 +12,7 @@ const clickHandler = (e, { state, chartId, filter } = {}) => {
     const { value } = e.target.dataset;
     if (state[value] === undefined) state[value] = false;
     else state[value] = !state[value];
-    filterChartData(chartId, data => filter(data, state));
+    updateByFilter(chartId, data => filter(data, state));
   }
 };
 

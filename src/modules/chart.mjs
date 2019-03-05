@@ -28,9 +28,12 @@ export function createChart({
   data = [12, 19, 3]
 } = {}) {
   const parent = document.getElementById(`chart-container-${id}`);
+  // return early if id is not found
+  if (parent === null) return null;
+
   const canvas = document.createElement("canvas");
   canvas.id = id;
-  if (id !== "years") {
+  if (id[0] !== "y") {
     canvas.style.maxWidth = "450px";
     canvas.style.minWidth = "0px";
   }
@@ -64,10 +67,10 @@ export function updateChart({ id, labels = [], data = [] } = {}) {
 
     // update options
     const total = data.reduce((sum, n) => sum + n, 0);
-    const typeofEntry = id === "seasonMinutes" ? "min" : "entries";
+    const typeofEntry = id === "seasons-duration" ? "min" : "entries";
     let text = "";
-    if (id === "seasonMinutes") text = "Minutes of anime watched by season";
-    if (id === "seasons") text = "Number of anime watched by season";
+    if (id === "seasons-duration") text = "Minutes of anime watched by season";
+    if (id === "seasons-count") text = "Number of anime watched by season";
     chart.options = {
       ...getOptions(chart.config.type),
       title: { display: true, text },

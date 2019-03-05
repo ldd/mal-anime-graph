@@ -8,6 +8,7 @@ function processAllData(data) {
       {
         startDate: { year },
         season,
+        score = 0,
         duration = 0,
         timesWatched = 1,
         episodes = 0,
@@ -18,27 +19,51 @@ function processAllData(data) {
         duration * episodesWatched * 1 +
         duration * episodes * (timesWatched - 1);
       return {
-        ...dic,
-        years: { ...dic.years, [year]: (dic.years[year] || 0) + 1 },
-        seasons: { ...dic.seasons, [season]: (dic.seasons[season] || 0) + 1 },
-        seasonMinutes: {
-          ...dic.seasonMinutes,
-          [season]: (dic.seasonMinutes[season] || 0) + totalDuration
+        years: {
+          count: {
+            ...dic.years.count,
+            [year]: (dic.years.count[year] || 0) + 1
+          },
+          duration: {
+            ...dic.years.duration,
+            [year]: (dic.years.duration[year] || 0) + totalDuration
+          },
+          score: {
+            ...dic.years.score,
+            [year]: (dic.years.score[year] || 0) + score
+          }
+        },
+        seasons: {
+          count: {
+            ...dic.seasons.count,
+            [season]: (dic.seasons.count[season] || 0) + 1
+          },
+          duration: {
+            ...dic.seasons.duration,
+            [season]: (dic.seasons.duration[season] || 0) + totalDuration
+          },
+          score: {
+            ...dic.seasons.score,
+            [season]: (dic.seasons.score[season] || 0) + score
+          }
         }
       };
     },
-    { years: {}, seasons: {}, seasonMinutes: {} }
+    {
+      years: { count: {}, duration: {}, score: {} },
+      seasons: { count: {}, duration: {}, score: {} }
+    }
   );
 }
 
 function updateCharts(data) {
-  const processedKeys = Object.keys(data);
-  const processedValues = Object.values(data);
-  for (let index = 0; index < processedValues.length; index += 1) {
-    const vv = processedValues[index];
-    const [labels, innerValues] = [Object.keys(vv), Object.values(vv)];
-    updateChart({ id: processedKeys[index], labels, data: innerValues });
-  }
+  Object.entries(data).forEach(([id, attributes]) => {
+    Object.entries(attributes).forEach(([attributeKey, metrics]) => {
+      const labels = Object.keys(metrics);
+      const innerData = Object.values(metrics);
+      updateChart({ id: `${id}-${attributeKey}`, labels, data: innerData });
+    });
+  });
 }
 const debouncedUpdateCharts = debounce(updateCharts, 250, false);
 
@@ -54,9 +79,10 @@ export async function processCharts(parsedMyData) {
   }
 }
 
-export function filterChartData(id, filter = () => true) {
+export function updateByFilter(id, filter = () => true) {
   const allFilteredData = processAllData(data.filter(filter));
-  const chartData = allFilteredData[id];
+  const [attribute, metric] = id.split("-");
+  const chartData = allFilteredData[attribute][metric];
   const [labels, innerValues] = [
     Object.keys(chartData),
     Object.values(chartData)
