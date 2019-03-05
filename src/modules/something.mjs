@@ -89,3 +89,14 @@ export function updateByFilter(id, filter = () => true) {
   ];
   filterChart({ id, labels, data: innerValues });
 }
+
+export function updateByMetric(id, metric) {
+  const allFilteredData = processAllData(data);
+  const [attribute] = id.split("-");
+  const chartData = allFilteredData[attribute][metric];
+  const [labels, innerValues] = [
+    Object.keys(chartData),
+    Object.values(chartData)
+  ];
+  filterChart({ id, labels, data: innerValues });
+}
