@@ -18,10 +18,61 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"
     />
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="charts.css" />
   </head>
   <body>
-    <nav id="navbar"></nav>
-    <div id="charts-container"></div>
+    <noscript>
+      ＼(＾O＾)／＼(＾O＾)／＼(＾O＾)／ Please turn on javascript
+      ＼(＾O＾)／＼(＾O＾)／＼(＾O＾)／
+    </noscript>
+    <section class="hero is-primary is-medium is-bold ">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <nav id="navbar"></nav>
+      </div>
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <!-- <div class="container has-text-centered">
+          <h1 class="title">
+            Anime Profile Enhacer
+          </h1>
+          <h2 class="subtitle">
+            Improve your myAnimeList, kia, anilist profiles and get stats!
+          </h2>
+        </div> -->
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="box">
+              <div id="chart-container-years"></div>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="box">
+              <div
+                id="chart-options-seasonMinutes"
+                class="columns is-vcentered"
+                style="display: flex;justify-content: space-between;"
+              ></div>
+              <div id="chart-container-seasonMinutes"></div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <div
+                id="chart-options-seasons"
+                class="columns is-vcentered"
+                style="display: flex;justify-content: space-between;"
+              ></div>
+              <div id="chart-container-seasons"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hero footer: will stick at the bottom -->
+      <div class="hero-foot" id="footer"></div>
+    </section>
   </body>
 </html>

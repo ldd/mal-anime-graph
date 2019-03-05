@@ -4,17 +4,26 @@ import { footerTemplate } from "./footer.mjs";
 
 const emptyTemplate = () => html``;
 
-export function addElement(template = emptyTemplate, parent = document.body) {
-  render(template(), parent);
+export function addElement(
+  template = emptyTemplate,
+  parent = document.body,
+  ...args
+) {
+  render(template(...args), parent);
 }
 
-const getElement = (id, type = id, className = id) => {
+export const getElement = (
+  id,
+  type = id,
+  className = id,
+  parent = document.body
+) => {
   let element = document.getElementById(id);
   if (!element) {
     element = document.createElement(type);
     element.id = id;
     element.className = className;
-    document.body.appendChild(element);
+    parent.appendChild(element);
   }
   return element;
 };

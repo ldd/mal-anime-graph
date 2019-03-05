@@ -27,7 +27,7 @@ export function createChart({
   labels = ["", "", ""],
   data = [12, 19, 3]
 } = {}) {
-  const parent = document.getElementById("charts-container");
+  const parent = document.getElementById(`chart-container-${id}`);
   const canvas = document.createElement("canvas");
   canvas.id = id;
   if (id !== "years") {
