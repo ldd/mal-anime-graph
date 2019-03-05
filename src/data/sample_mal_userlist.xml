@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+		<!--
+		 Created by XML Export feature at MyAnimeList.net
+		 Programmed by Xinil
+		 Last updated 5/27/2008
+		-->
+		
+		<myanimelist>
+		
+			<myinfo>
+				<user_id>1</user_id>
+				<user_name>sample</user_name>
+				<user_export_type>1</user_export_type>
+				<user_total_anime>10</user_total_anime>
+				<user_total_watching>1</user_total_watching>
+				<user_total_completed>9</user_total_completed>
+				<user_total_onhold>0</user_total_onhold>
+				<user_total_dropped>0</user_total_dropped>
+				<user_total_plantowatch>0</user_total_plantowatch>
+			</myinfo>
+		
+		
+				<anime>
+					<series_animedb_id>36793</series_animedb_id>
+					<series_title><![CDATA[3D Kanojo: Real Girl]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>12</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>12</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>0000-00-00</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>37956</series_animedb_id>
+					<series_title><![CDATA[3D Kanojo: Real Girl 2nd Season]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>12</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>6</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>0000-00-00</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Watching</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>34881</series_animedb_id>
+					<series_title><![CDATA[Aho Girl]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>12</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>12</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>2017-09-19</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>101</series_animedb_id>
+					<series_title><![CDATA[Air]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>12</series_episodes>
+					<my_id>5082460</my_id>
+					<my_watched_episodes>13</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>0000-00-00</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>8</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>102</series_animedb_id>
+					<series_title><![CDATA[Aishiteruze Baby★★]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>26</series_episodes>
+					<my_id>7673307</my_id>
+					<my_watched_episodes>26</my_watched_episodes>
+					<my_start_date>2009-02-20</my_start_date>
+					<my_finish_date>2009-03-13</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>9</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>31580</series_animedb_id>
+					<series_title><![CDATA[Ajin]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>13</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>13</my_watched_episodes>
+					<my_start_date>2017-05-22</my_start_date>
+					<my_finish_date>2017-05-23</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>36864</series_animedb_id>
+					<series_title><![CDATA[Akkun to Kanojo]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>25</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>25</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>2018-09-21</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>32828</series_animedb_id>
+					<series_title><![CDATA[Amaama to Inazuma]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>12</series_episodes>
+					<my_id>0</my_id>
+					<my_watched_episodes>12</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>0000-00-00</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>10</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>8676</series_animedb_id>
+					<series_title><![CDATA[Amagami SS]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>25</series_episodes>
+					<my_id>22997378</my_id>
+					<my_watched_episodes>25</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>2010-12-30</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>0</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+				<anime>
+					<series_animedb_id>6547</series_animedb_id>
+					<series_title><![CDATA[Angel Beats!]]></series_title>
+					<series_type>TV</series_type>
+					<series_episodes>13</series_episodes>
+					<my_id>22298116</my_id>
+					<my_watched_episodes>13</my_watched_episodes>
+					<my_start_date>0000-00-00</my_start_date>
+					<my_finish_date>0000-00-00</my_finish_date>
+					<my_rated></my_rated>
+					<my_score>10</my_score>
+					<my_dvd></my_dvd>
+					<my_storage></my_storage>
+					<my_status>Completed</my_status>
+					<my_comments><![CDATA[]]></my_comments>
+					<my_times_watched>0</my_times_watched>
+					<my_rewatch_value></my_rewatch_value>
+					<my_tags><![CDATA[]]></my_tags>
+					<my_rewatching>0</my_rewatching>
+					<my_rewatching_ep>0</my_rewatching_ep>
+					<update_on_import>0</update_on_import>
+				</anime>
+			
+			</myanimelist>
+			

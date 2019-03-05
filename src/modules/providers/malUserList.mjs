@@ -3,7 +3,7 @@ import { get } from "../utils.mjs";
 const parser = new DOMParser();
 
 async function fetchSampleData() {
-  const rawData = await fetch("./data/animelist_1551466288_-_86889.xml");
+  const rawData = await fetch("./data/sample_mal_userlist.xml");
   const data = await rawData.text();
   return data;
 }
