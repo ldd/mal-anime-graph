@@ -1,5 +1,6 @@
 import { anilist } from "./providers/anilist.mjs";
 import { updateChart, filterChart } from "./chart.mjs";
+import { updateInsights } from "./insights.mjs";
 
 function processAllData(data) {
   return data.reduce(
@@ -90,11 +91,18 @@ function processAllData(data) {
 }
 
 function updateCharts(data) {
-  Object.entries(data).forEach(([id, attributes]) => {
-    Object.entries(attributes).forEach(([attributeKey, metrics]) => {
+  Object.entries(data).forEach(([attributeKey, attributes]) => {
+    Object.entries(attributes).forEach(([metricKey, metrics]) => {
       const labels = Object.keys(metrics);
       const innerData = Object.values(metrics);
-      updateChart({ id: `${id}-${attributeKey}`, labels, data: innerData });
+      updateChart({
+        id: `${attributeKey}-${metricKey}`,
+        labels,
+        data: innerData
+      });
+      if (attributeKey === "genres") {
+        updateInsights(metrics, metricKey);
+      }
     });
   });
 }
