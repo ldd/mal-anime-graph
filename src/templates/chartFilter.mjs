@@ -61,12 +61,12 @@ export const chartFilterTemplate = (
               <button
                 class="button is-primary is-outlined"
                 aria-haspopup="true"
-                aria-controls="dropdown-menu"
+                aria-controls="${id}-${ID_BASE}-${chartId}"
               >
                 ${label}
               </button>
             </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-menu" role="menu">
               <div class="dropdown-content">
                 ${options.map(
                   // weird syntax for data-value described here:

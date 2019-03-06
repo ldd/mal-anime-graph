@@ -47,6 +47,7 @@ export const userListSelectionTemplate = ({
     </div>
     <div class="control">
       <input
+        aria-label="username"
         placeholder="USERNAME"
         class="input"
         type="text"

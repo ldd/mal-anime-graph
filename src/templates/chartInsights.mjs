@@ -46,7 +46,8 @@ export const addChartInsights = (...args) => {
 
 export const updateChartInsights = entries => {
   Object.entries(entries).forEach(([key, value]) => {
+    // make sure parent and child have different id
     const parent = getElement(`chart-insights-${key}`, "p", "title");
-    addElement(insightTemplate, parent, key, value);
+    addElement(insightTemplate, parent, `${key}-label`, value);
   });
 };
