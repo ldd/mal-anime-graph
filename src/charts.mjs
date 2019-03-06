@@ -36,5 +36,5 @@ document.addEventListener("DOMContentLoaded", () => {
   addChartOptions("years-count");
   addChartOptions("seasons-duration");
   addChartOptions("seasons-count");
-  main();
+  setTimeout(main, 0);
 });
