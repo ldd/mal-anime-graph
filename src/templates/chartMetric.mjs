@@ -30,7 +30,7 @@ export const chartMetricTemplate = (
   } = {}
 ) =>
   html`
-    <div>
+    <div class="column">
       <span>Metric:</span>
       <div
         class="buttons has-addons"

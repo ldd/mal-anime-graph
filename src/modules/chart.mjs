@@ -33,10 +33,8 @@ export function createChart({
 
   const canvas = document.createElement("canvas");
   canvas.id = id;
-  if (id[0] !== "y") {
-    canvas.style.maxWidth = "450px";
-    canvas.style.minWidth = "0px";
-  }
+  canvas.style.maxWidth = "450px";
+  canvas.style.minWidth = "0px";
   parent.appendChild(canvas);
   const context = canvas.getContext("2d");
   const myChart = new Chart(context, {

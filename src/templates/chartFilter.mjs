@@ -46,41 +46,43 @@ export const chartFilterTemplate = (
   } = {}
 ) => {
   return html`
-    <span>Filters:</span>
-    ${filters.map(
-      ({ id, label, options, filter }) => html`
-        <div
-          class="dropdown"
-          id="${id}-${ID_BASE}-${chartId}"
-          style="vertical-align:middle"
-          on-click=${e =>
-            clickHandler(e, { state: state[id], chartId, filter })}
-        >
-          <div class="dropdown-trigger">
-            <button
-              class="button is-primary is-outlined"
-              aria-haspopup="true"
-              aria-controls="dropdown-menu"
-            >
-              ${label}
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              ${options.map(
-                // weird syntax for data-value described here:
-                // https://github.com/Polymer/lit-html/issues/194#issuecomment-345482860
-                ({ text, value }) =>
-                  html`
-                    <a class="dropdown-item is-active" data-value$=${value}>
-                      ${text}
-                    </a>
-                  `
-              )}
+    <div class="column">
+      <span>Filters:</span>
+      ${filters.map(
+        ({ id, label, options, filter }) => html`
+          <div
+            class="dropdown"
+            id="${id}-${ID_BASE}-${chartId}"
+            style="vertical-align:middle"
+            on-click=${e =>
+              clickHandler(e, { state: state[id], chartId, filter })}
+          >
+            <div class="dropdown-trigger">
+              <button
+                class="button is-primary is-outlined"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu"
+              >
+                ${label}
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                ${options.map(
+                  // weird syntax for data-value described here:
+                  // https://github.com/Polymer/lit-html/issues/194#issuecomment-345482860
+                  ({ text, value }) =>
+                    html`
+                      <a class="dropdown-item is-active" data-value$=${value}>
+                        ${text}
+                      </a>
+                    `
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      `
-    )}
+        `
+      )}
+    </div>
   `;
 };

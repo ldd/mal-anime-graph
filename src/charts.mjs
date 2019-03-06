@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createChart({ id: "years-count" });
   createChart({ id: "seasons-duration", type: "pie" });
   createChart({ id: "seasons-count", type: "pie" });
+  addChartOptions("years-count");
   addChartOptions("seasons-duration");
   addChartOptions("seasons-count");
   main();
