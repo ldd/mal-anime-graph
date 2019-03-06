@@ -11,6 +11,10 @@ const query = `
       query ($id: Int) {
         Media (id: $id, type: ANIME) {
           id
+          genres
+          studios{
+            edges{node{id,name}}
+          }
           duration
           season
           startDate {
@@ -65,6 +69,10 @@ function anilistParser(data = {}) {
   const { data: { Media } = {} } = data;
   // force a season value
   Media.season = Media.season || getSeason(Media.startDate.month);
+  // force studios revaluation only if the response used edges
+  if (Media.studios.edges) {
+    Media.studios = (Media.studios.edges || []).map(({ node = {} }) => node);
+  }
   return Media;
 }
 

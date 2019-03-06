@@ -21,6 +21,8 @@ export async function fetchById(animeId = 1) {
 export function malParser(data = {}) {
   const {
     mal_id: id,
+    genres = [],
+    studios = [],
     duration,
     aired: { from: dateString = "", prop = {} } = {}
   } = data;
@@ -36,10 +38,12 @@ export function malParser(data = {}) {
   }
   return {
     id,
-    startDate: from,
-    endDate: to,
+    genres: genres.map(({ name }) => name),
+    studios: studios.map(({ mal_id: malId, name }) => ({ id: malId, name })),
+    duration: parseInt(duration, 10),
     season: getSeason(from.month),
-    duration: parseInt(duration, 10)
+    startDate: from,
+    endDate: to
   };
 }
 
