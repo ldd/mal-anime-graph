@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "import/extensions": [1, { "mjs": "always", "js": "always" }],
+    "import/no-unresolved": 0
+  }
+}
