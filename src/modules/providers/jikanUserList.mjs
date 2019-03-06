@@ -28,7 +28,9 @@ export function parseUserData(data) {
     type: node.type,
     status: getStatus(node.watching_status),
     episodes: node.total_episodes,
-    episodes_watched: node.watched_episodes
+    episodesWatched: node.watched_episodes,
+    // INFO: this means that rewatches are not accounted for
+    timesWatched: 1
   }));
 }
 
