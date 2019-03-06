@@ -13,10 +13,12 @@ async function main() {
   if (!data || data === "null" || data === "undefined") {
     data = await processSampleData();
   }
+  const total = data.filter(({ score }) => score > 0).length;
   const insights = data.reduce(
     (dic, n) => ({
       ...dic,
-      score: (dic.score || 0) + n.score,
+      score:
+        Math.floor((((dic.score || 0) * total + n.score) / total) * 100) / 100,
       episodesWatched: (dic.episodesWatched || 0) + n.episodesWatched
     }),
     { score: 0, episodesWatched: 0 }

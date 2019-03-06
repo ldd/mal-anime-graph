@@ -33,7 +33,8 @@ function processAllData(data) {
           },
           score: {
             ...acc.score,
-            [genre]: ((acc.score[genre] || 0) + score) / genresCount
+            [genre]:
+              ((acc.score[genre] || 0) * genresCount + score) / genresCount
           }
         };
       }, dic.genres);
@@ -49,7 +50,8 @@ function processAllData(data) {
           },
           score: {
             ...dic.years.score,
-            [year]: ((dic.years.score[year] || 0) + score) / yearsCount
+            [year]:
+              ((dic.years.score[year] || 0) * yearsCount + score) / yearsCount
           }
         },
         seasons: {
@@ -63,7 +65,9 @@ function processAllData(data) {
           },
           score: {
             ...dic.seasons.score,
-            [season]: ((dic.seasons.score[season] || 0) + score) / seasonsCount
+            [season]:
+              ((dic.seasons.score[season] || 0) * seasonsCount + score) /
+              seasonsCount
           }
         },
         genres: {
