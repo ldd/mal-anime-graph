@@ -1,12 +1,13 @@
 {
   "name": "mal-anime-graph",
   "version": "1.0.0",
-  "main": "index.mjs",
+  "main": "src/index.mjs",
   "author": "ldd",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "lint": "eslint src --ext .js,.mjs"
+    "lint": "eslint src --ext .js,.mjs",
+    "build": "rollup -c"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -16,6 +17,8 @@
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "rollup": "^1.4.1",
+    "rollup-plugin-terser": "^4.0.4"
   }
 }

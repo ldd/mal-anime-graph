@@ -1,3 +1,9 @@
-Server.py
-node_modules
+# ignore OSX files
 .DS_Store
+
+# ignore dependencies
+node_modules
+
+# ignore project files
+Server.py
+dist/
