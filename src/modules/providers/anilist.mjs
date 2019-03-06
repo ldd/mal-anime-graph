@@ -1,13 +1,13 @@
 import { fetchToLocalStorage, getSeason, sleep } from "../utils.mjs";
 import { fetchById as malFetchById, malParser } from "./myAnimeList.mjs";
 
-const BASE_URL = "https://graphql.anilist.co";
+export const BASE_URL = "https://graphql.anilist.co";
 // https://anilist.gitbook.io/anilist-apiv2-docs/overview/rate-limiting
-const RATE_LIMIT = 90;
-const RATE_LIMIT_T = 65 * 1000;
+export const RATE_LIMIT = 90;
+export const RATE_LIMIT_T = 65 * 1000;
 
 // https://anilist.github.io/ApiV2-GraphQL-Docs/media.doc.html
-const query = `
+const defaultQuery = `
       query ($id: Int) {
         Media (id: $id, type: ANIME) {
           id
@@ -31,7 +31,7 @@ const query = `
       }
     `;
 
-function makeRequest(id = 1) {
+export function makeRequest(id = 1, query = defaultQuery) {
   return {
     method: "POST",
     headers: {
