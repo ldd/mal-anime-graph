@@ -41,8 +41,8 @@ const filterReducer = (A = [], filters = []) =>
     A
   );
 
-export function updateByFilter(id, { metric, filters }) {
-  const allFilteredData = metricReducer(filterReducer(data, filters));
+export function updateByFilter(id, { metric, filters }, inputData = data) {
+  const allFilteredData = metricReducer(filterReducer(inputData, filters));
   const [attribute] = id.split("-");
   const chartData = allFilteredData[attribute][metric];
   const [labels, innerValues] = [
