@@ -31,6 +31,13 @@ const formClickHandler = (event, { state: { provider } }) => {
   event.stopPropagation();
   event.preventDefault();
 };
+
+const keyboardPressHandler = (event, ...args) => {
+  if (event.key === "Enter") {
+    formClickHandler(event, ...args);
+  }
+};
+
 // This is a lit-html template function.
 export const userListSelectionTemplate = ({
   state = { provider: "MAL" }
@@ -52,6 +59,7 @@ export const userListSelectionTemplate = ({
         class="input"
         type="text"
         id="user-list-selection-input"
+        on-keyup=${e => keyboardPressHandler(e, { state })}
       />
     </div>
     <div class="control">
