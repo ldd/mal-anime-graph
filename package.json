@@ -28,6 +28,7 @@
     "lit-html": "0.10.0",
     "prettier": "^1.16.4",
     "rollup": "^1.4.1",
+    "rollup-plugin-copy": "^0.2.3",
     "rollup-plugin-terser": "^4.0.4"
   }
 }
