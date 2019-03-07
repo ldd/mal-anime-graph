@@ -7,6 +7,7 @@ import {
   addChartInsights,
   updateChartInsights
 } from "./templates/chartInsights.mjs";
+import { addNotification } from "./templates/notification.mjs";
 
 async function main() {
   let data = JSON.parse(localStorage.getItem("malProcessedData"));
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addNavbar();
   addFooter();
   addChartInsights();
+  addNotification();
   addChartOptions("years-count");
   addChartOptions("seasons-duration");
   addChartOptions("seasons-count");

@@ -1,9 +1,10 @@
 import { anilist } from "../providers/anilist.mjs";
 import { updateChart, filterChart } from "./chart.mjs";
-import { updateInsights } from "./insights.mjs";
+import { updateInsights, updateNotifications } from "./insights.mjs";
 import { metricReducer } from "../reducers/metricReducer.mjs";
 
-function updateCharts(rawData) {
+function updateCharts(rawData, expectedLength) {
+  updateNotifications(rawData.length, expectedLength);
   const data = metricReducer(rawData);
   Object.entries(data).forEach(([attributeKey, attributes]) => {
     Object.entries(attributes).forEach(([metricKey, metrics]) => {
@@ -26,11 +27,12 @@ const debouncedUpdateCharts = debounce(updateCharts, 250, false);
 const data = [];
 export async function processCharts(parsedMyData) {
   data.length = 0;
-  for (let i = 0; i < parsedMyData.length; i += 1) {
+  const expectedLength = parsedMyData.length;
+  for (let i = 0; i < expectedLength; i += 1) {
     const datum = parsedMyData[i];
     anilist(datum.id).then(d => {
       data.push({ ...datum, ...d });
-      debouncedUpdateCharts(data);
+      debouncedUpdateCharts(data, expectedLength);
     });
   }
 }
