@@ -1,8 +1,9 @@
 {
   "extends": ["airbnb-base", "prettier"],
-  "plugins": ["babel", "import", "prettier"],
+  "plugins": ["jest", "babel", "import", "prettier"],
   "env": {
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   },
   "globals": {
     "Chart": true,
