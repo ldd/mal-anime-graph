@@ -19,10 +19,15 @@ const formClickHandler = (event, { state: { provider } }) => {
   const userInput = document.getElementById("user-list-selection-input") || {};
   const user = userInput.value;
   if (user && user.length > 2) {
-    const userSubmitButton = event.target;
+    // the event.target is not guaranteed to be the submit button
+    const userSubmitButton = document.getElementById(
+      "user-list-selection-submit"
+    );
+    userInput.disabled = true;
     userSubmitButton.classList.add("is-loading");
     const processUserData = provider === "MAL" ? malUserData : aniUserData;
     processUserData(userInput.value).then(data => {
+      userInput.disabled = false;
       userSubmitButton.classList.remove("is-loading");
       localStorage.setItem("malProcessedData", JSON.stringify(data));
       window.location.href = "./charts.html";
