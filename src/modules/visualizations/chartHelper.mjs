@@ -3,7 +3,8 @@ import { updateChart, filterChart } from "./chart.mjs";
 import { updateInsights } from "./insights.mjs";
 import { metricReducer } from "../reducers/metricReducer.mjs";
 
-function updateCharts(data) {
+function updateCharts(rawData) {
+  const data = metricReducer(rawData);
   Object.entries(data).forEach(([attributeKey, attributes]) => {
     Object.entries(attributes).forEach(([metricKey, metrics]) => {
       const labels = Object.keys(metrics);
@@ -19,6 +20,7 @@ function updateCharts(data) {
     });
   });
 }
+// notice how heavy tasks, like running the metricReducer, are run inside updateCharts
 const debouncedUpdateCharts = debounce(updateCharts, 250, false);
 
 const data = [];
@@ -28,7 +30,7 @@ export async function processCharts(parsedMyData) {
     const datum = parsedMyData[i];
     anilist(datum.id).then(d => {
       data.push({ ...datum, ...d });
-      debouncedUpdateCharts(metricReducer(data));
+      debouncedUpdateCharts(data);
     });
   }
 }

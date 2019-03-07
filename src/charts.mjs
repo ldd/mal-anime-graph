@@ -26,15 +26,23 @@ async function main() {
   updateChartInsights(insights);
   return processCharts(data);
 }
+let FLAG = false;
 document.addEventListener("DOMContentLoaded", () => {
   addNavbar();
   addFooter();
   addChartInsights();
-  createChart({ id: "years-count" });
-  createChart({ id: "seasons-duration", type: "pie" });
-  createChart({ id: "seasons-count", type: "pie" });
   addChartOptions("years-count");
   addChartOptions("seasons-duration");
   addChartOptions("seasons-count");
-  setTimeout(main, 0);
+  // for a smooth user experience, we will wait until the initial mocked charts load
+  // https://www.chartjs.org/docs/latest/configuration/animations.html#animation-callbacks
+  Chart.defaults.global.animation.onComplete = () => {
+    if (FLAG === false) {
+      FLAG = true;
+      main();
+    }
+  };
+  createChart({ id: "years-count" });
+  createChart({ id: "seasons-duration", type: "pie" });
+  createChart({ id: "seasons-count", type: "pie" });
 });
