@@ -1,14 +1,14 @@
-import { processAllData } from "../src/modules/something.mjs";
+import { metricReducer } from "../src/modules/reducers/metricReducer.mjs";
 
-describe("processAllData", () => {
+describe("metricReducer", () => {
   test("no data", () => {
     const processedData = {
       years: { count: {}, duration: {}, score: {} },
       seasons: { count: {}, duration: {}, score: {} },
       genres: { count: {}, duration: {}, score: {} }
     };
-    expect(processAllData()).toEqual(processedData);
-    expect(processAllData([])).toEqual(processedData);
+    expect(metricReducer()).toEqual(processedData);
+    expect(metricReducer([])).toEqual(processedData);
   });
   test("single entry [season, year]", () => {
     const processedData = {
@@ -16,8 +16,8 @@ describe("processAllData", () => {
       seasons: { count: { summer: 1 }, duration: { summer: 0 }, score: { summer: 0 } },
       genres: { count: {}, duration: {}, score: {} }
     };
-    expect(processedData).toEqual(processAllData([{ season: "summer", startDate: { year: 2000 } }]));
-    expect(processedData).toEqual(processAllData([{ season: "summer", genres: [], startDate: { year: 2000 } }]));
+    expect(processedData).toEqual(metricReducer([{ season: "summer", startDate: { year: 2000 } }]));
+    expect(processedData).toEqual(metricReducer([{ season: "summer", genres: [], startDate: { year: 2000 } }]));
   });
   test("single entry [season, year, genres]", () => {
     const processedData = {
@@ -25,9 +25,7 @@ describe("processAllData", () => {
       seasons: { count: { summer: 1 }, duration: { summer: 0 }, score: { summer: 0 } },
       genres: { count: { comedy: 1 }, duration: { comedy: 0 }, score: { comedy: 0 } }
     };
-    expect(processedData).toEqual(
-      processAllData([{ season: "summer", genres: ["comedy"], startDate: { year: 2000 } }])
-    );
+    expect(processedData).toEqual(metricReducer([{ season: "summer", genres: ["comedy"], startDate: { year: 2000 } }]));
   });
   test("single entry [season, year, genres, score]", () => {
     const processedData = {
@@ -36,7 +34,7 @@ describe("processAllData", () => {
       genres: { count: { comedy: 1 }, duration: { comedy: 0 }, score: { comedy: 5 } }
     };
     expect(processedData).toEqual(
-      processAllData([{ season: "summer", genres: ["comedy"], startDate: { year: 2000 }, score: 5 }])
+      metricReducer([{ season: "summer", genres: ["comedy"], startDate: { year: 2000 }, score: 5 }])
     );
   });
   test("2 entries, no props", () => {
@@ -46,7 +44,7 @@ describe("processAllData", () => {
       genres: { count: { comedy: 2 }, duration: { comedy: 0 }, score: { comedy: 0 } }
     };
     expect(processedData).toEqual(
-      processAllData([
+      metricReducer([
         { season: "summer", genres: ["comedy"], startDate: { year: 2000 } },
         { season: "summer", genres: ["comedy"], startDate: { year: 2000 } }
       ])
@@ -59,7 +57,7 @@ describe("processAllData", () => {
       genres: { count: { comedy: 2 }, duration: { comedy: 12 * (17 + 13) }, score: { comedy: 20 } }
     };
     expect(processedData).toEqual(
-      processAllData([
+      metricReducer([
         {
           season: "summer",
           genres: ["comedy"],

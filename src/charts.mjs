@@ -1,6 +1,6 @@
 import { processSampleData } from "./modules/providers/malUserList.mjs";
-import { createChart } from "./modules/chart.mjs";
-import { processCharts } from "./modules/something.mjs";
+import { createChart } from "./modules/visualizations/chart.mjs";
+import { processCharts } from "./modules/visualizations/chartHelper.mjs";
 import { addNavbar, addFooter } from "./templates/helper.mjs";
 import { addChartOptions } from "./templates/chartOptions.mjs";
 import {
