@@ -35,19 +35,14 @@ export async function processCharts(parsedMyData) {
   }
 }
 
-export function updateByFilter(id, filter = () => true) {
-  const allFilteredData = metricReducer(data.filter(filter));
-  const [attribute, metric] = id.split("-");
-  const chartData = allFilteredData[attribute][metric];
-  const [labels, innerValues] = [
-    Object.keys(chartData),
-    Object.values(chartData)
-  ];
-  filterChart({ id, labels, data: innerValues });
-}
+const filterReducer = (A = [], filters = []) =>
+  filters.reduce(
+    (B, { filter, options }) => B.filter(b => filter(b, options)),
+    A
+  );
 
-export function updateByMetric(id, metric) {
-  const allFilteredData = metricReducer(data);
+export function updateByFilter(id, { metric, filters }) {
+  const allFilteredData = metricReducer(filterReducer(data, filters));
   const [attribute] = id.split("-");
   const chartData = allFilteredData[attribute][metric];
   const [labels, innerValues] = [
@@ -56,3 +51,5 @@ export function updateByMetric(id, metric) {
   ];
   filterChart({ id, labels, data: innerValues });
 }
+
+export const updateByMetric = updateByFilter;

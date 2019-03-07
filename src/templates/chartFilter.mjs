@@ -3,59 +3,36 @@ import { updateByFilter } from "../modules/visualizations/chartHelper.mjs";
 
 const ID_BASE = "filter-dropdown";
 
-const clickHandler = (e, { state, chartId, filter } = {}) => {
+const clickHandler = (e, { state, index, chartId } = {}) => {
   // e.stopPropagation();
+  const innerState = state.filters[index].options;
   if (e.target.tagName === "BUTTON") {
     e.target.parentNode.parentNode.classList.toggle("is-active");
   } else {
     e.target.classList.toggle("is-active");
     const { value } = e.target.dataset;
-    if (state[value] === undefined) state[value] = false;
-    else state[value] = !state[value];
-    updateByFilter(chartId, data => filter(data, state));
+    innerState[value].selected = !innerState[value].selected;
+    updateByFilter(chartId, state);
   }
 };
 
 // This is a lit-html template function.
 export const chartFilterTemplate = (
   chartId,
-  {
-    state = { type: {}, status: {} },
-    filters = [
-      {
-        id: "type",
-        label: "Type",
-        options: [
-          { value: "TV", text: "tv" },
-          { value: "Movie", text: "movie" },
-          { value: "ONA", text: "ona" }
-        ],
-        filter: (data, innerState) => innerState[data.type] !== false
-      },
-      {
-        id: "status",
-        label: "Status",
-        options: [
-          { value: "Completed", text: "completed" },
-          { value: "Watching", text: "watching" },
-          { value: "Dropped", text: "dropped" }
-        ],
-        filter: (data, innerState) => innerState[data.status] !== false
-      }
-    ]
-  } = {}
+  state = {
+    filters: []
+  }
 ) => {
   return html`
     <div class="column">
       <span>Filters:</span>
-      ${filters.map(
-        ({ id, label, options, filter }) => html`
+      ${state.filters.map(
+        ({ id, label, options }, index) => html`
           <div
             class="dropdown"
             id="${id}-${ID_BASE}-${chartId}"
             style="vertical-align:middle"
-            on-click=${e =>
-              clickHandler(e, { state: state[id], chartId, filter })}
+            on-click=${e => clickHandler(e, { state, index, chartId })}
           >
             <div class="dropdown-trigger">
               <button
@@ -68,13 +45,16 @@ export const chartFilterTemplate = (
             </div>
             <div class="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                ${options.map(
+                ${Object.entries(options).map(
                   // weird syntax for data-value described here:
                   // https://github.com/Polymer/lit-html/issues/194#issuecomment-345482860
-                  ({ text, value }) =>
+                  ([optionId, { label: optionLabel }]) =>
                     html`
-                      <a class="dropdown-item is-active" data-value$=${value}>
-                        ${text}
+                      <a
+                        class="dropdown-item is-active"
+                        data-value$=${optionId}
+                      >
+                        ${optionLabel}
                       </a>
                     `
                 )}

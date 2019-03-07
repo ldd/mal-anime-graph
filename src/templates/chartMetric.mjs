@@ -1,13 +1,14 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
 import { updateByMetric } from "../modules/visualizations/chartHelper.mjs";
 
-const clickHandler = (e, { chartId } = {}) => {
+const clickHandler = (e, { state, chartId } = {}) => {
   Array.from(e.target.parentNode.children).forEach(option => {
     if (e.target === option) {
       option.classList.add("is-primary");
       option.classList.add("is-selected");
       const { value } = option.dataset;
-      updateByMetric(chartId, value);
+      state.metric = value;
+      updateByMetric(chartId, state);
     } else {
       option.classList.remove("is-primary");
       option.classList.remove("is-selected");
@@ -21,6 +22,7 @@ const otherClassList = "button";
 // This is a lit-html template function.
 export const chartMetricTemplate = (
   chartId,
+  state = { metric: "count" },
   {
     metrics = [
       { id: "count", label: "Count" },
@@ -35,7 +37,7 @@ export const chartMetricTemplate = (
       <div
         class="buttons has-addons"
         style="display:inline-flex"
-        on-click=${e => clickHandler(e, { chartId })}
+        on-click=${e => clickHandler(e, { state, chartId })}
       >
         ${metrics.map(
           ({ id, label }) =>
