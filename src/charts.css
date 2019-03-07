@@ -4,3 +4,13 @@
   justify-content: space-evenly;
   flex: 1;
 }
+
+/* make sure initial load looks smooth */
+#navbar {
+  min-height: 52px;
+}
+
+#chart-container-insights,
+.hero-body > .columns > .column > .box {
+  min-height: 325px;
+}
