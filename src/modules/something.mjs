@@ -2,7 +2,7 @@ import { anilist } from "./providers/anilist.mjs";
 import { updateChart, filterChart } from "./chart.mjs";
 import { updateInsights } from "./insights.mjs";
 
-function processAllData(data) {
+export function processAllData(data = []) {
   return data.reduce(
     (
       dic,
@@ -15,7 +15,7 @@ function processAllData(data) {
         // studios = [],
         duration = 0,
         season,
-        startDate: { year }
+        startDate: { year } = {}
       } = {}
     ) => {
       const totalDuration =
@@ -34,7 +34,8 @@ function processAllData(data) {
           score: {
             ...acc.score,
             [genre]:
-              ((acc.score[genre] || 0) * genresCount + score) / genresCount
+              ((acc.score[genre] || 0) * (genresCount - 1) + score) /
+              genresCount
           }
         };
       }, dic.genres);
@@ -51,7 +52,8 @@ function processAllData(data) {
           score: {
             ...dic.years.score,
             [year]:
-              ((dic.years.score[year] || 0) * yearsCount + score) / yearsCount
+              ((dic.years.score[year] || 0) * (yearsCount - 1) + score) /
+              yearsCount
           }
         },
         seasons: {
@@ -66,7 +68,7 @@ function processAllData(data) {
           score: {
             ...dic.seasons.score,
             [season]:
-              ((dic.seasons.score[season] || 0) * seasonsCount + score) /
+              ((dic.seasons.score[season] || 0) * (seasonsCount - 1) + score) /
               seasonsCount
           }
         },
