@@ -1,5 +1,12 @@
 import { sleep } from "../utils.mjs";
 import { makeRequest, BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./anilist.mjs";
+import {
+  watching,
+  completed,
+  onHold,
+  dropped,
+  planToWatch
+} from "./constants.mjs";
 
 // https://anilist.github.io/ApiV2-GraphQL-Docs/media.doc.html
 const query = `
@@ -36,19 +43,19 @@ async function fetchUserData(userId) {
 function parseStatus(status) {
   switch (status) {
     case "CURRENT":
-      return "Watching";
+      return watching;
     case "PLANNING":
-      return "Plan to Watch";
+      return planToWatch;
     case "COMPLETED":
-      return "Completed";
+      return completed;
     case "DROPPED":
-      return "Dropped";
+      return dropped;
     case "PAUSED":
-      return "On Hold";
+      return onHold;
     case "REPEATING":
-      return "Completed";
+      return completed;
     default:
-      return "???";
+      return "";
   }
 }
 

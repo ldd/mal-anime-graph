@@ -1,6 +1,13 @@
 import { chartFilterTemplate } from "./chartFilter.mjs";
 import { chartMetricTemplate } from "./chartMetric.mjs";
 import { getElement, addElement } from "./helper.mjs";
+import {
+  watching,
+  completed,
+  onHold,
+  dropped,
+  planToWatch
+} from "../modules/providers/constants.mjs";
 
 export const addChartOptions = (
   chartId,
@@ -24,9 +31,11 @@ export const addChartOptions = (
         id: "status",
         label: "Status",
         options: {
-          Completed: { label: "Completed", selected: true },
-          Watching: { label: "Watching", selected: true },
-          Dropped: { label: "Dropped", selected: true }
+          Watching: { label: watching, selected: true },
+          Completed: { label: completed, selected: true },
+          OnHold: { label: onHold, selected: true },
+          Dropped: { label: dropped, selected: true },
+          PLanToWatch: { label: planToWatch, selected: true }
         },
         filter: (data, innerState) =>
           innerState[data.status] && innerState[data.status].selected !== false

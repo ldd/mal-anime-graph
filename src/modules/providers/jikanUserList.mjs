@@ -1,5 +1,12 @@
 import { sleep } from "../utils.mjs";
 import { BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./myAnimeList.mjs";
+import {
+  watching,
+  completed,
+  onHold,
+  dropped,
+  planToWatch
+} from "./constants.mjs";
 
 let counter = 0;
 async function fetchUserDataByPage(userId, page = 1) {
@@ -15,9 +22,15 @@ async function fetchUserDataByPage(userId, page = 1) {
 function getStatus(status) {
   switch (status) {
     case 1:
-      return "Watching";
+      return watching;
     case 2:
-      return "Completed";
+      return completed;
+    case 3:
+      return onHold;
+    case 4:
+      return dropped;
+    case 6:
+      return planToWatch;
     default:
       return "";
   }

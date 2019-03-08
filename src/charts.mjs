@@ -10,6 +10,7 @@ import {
   updateChartInsights
 } from "./templates/chartInsights.mjs";
 import { addNotification } from "./templates/notification.mjs";
+import { dropped } from "./modules/providers/constants.mjs";
 
 async function main() {
   let data = JSON.parse(localStorage.getItem("malProcessedData"));
@@ -23,7 +24,7 @@ async function main() {
   if (!data) {
     data = await processSampleData();
   }
-
+  data = data.filter(({ status }) => status !== dropped);
   const total = data.filter(({ score }) => score > 0).length || 1; // 1 to avoid displaying NaN
   const insights = data.reduce(
     (dic, n) => ({
