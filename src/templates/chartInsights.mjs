@@ -29,7 +29,7 @@ export const chartInsightsTemplate = ({
     </div>
     <div class="columns">
       <div class="column">
-        <p class="heading">PREFERED GENRE</p>
+        <p class="heading">PREFERRED GENRE</p>
         ${insightTemplate("preferedGenre", preferedGenre)}
       </div>
       <div class="column">
