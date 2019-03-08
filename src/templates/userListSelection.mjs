@@ -25,13 +25,15 @@ const formClickHandler = (event, { state: { provider } }) => {
     );
     userInput.disabled = true;
     userSubmitButton.classList.add("is-loading");
-    const processUserData = provider === "MAL" ? malUserData : aniUserData;
-    processUserData(userInput.value).then(data => {
-      userInput.disabled = false;
-      userSubmitButton.classList.remove("is-loading");
-      localStorage.setItem("malProcessedData", JSON.stringify(data));
-      window.location.href = "./charts.html";
-    });
+    localStorage.setItem(
+      "userlist_info",
+      JSON.stringify({
+        forceUpdate: true,
+        userId: userInput.value,
+        provider
+      })
+    );
+    window.location.href = "./charts.html";
   }
   event.stopPropagation();
   event.preventDefault();

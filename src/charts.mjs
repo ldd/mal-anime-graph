@@ -1,4 +1,6 @@
 import { processSampleData } from "./modules/providers/malUserList.mjs";
+import { processUserData as malUserData } from "./modules/providers/jikanUserList.mjs";
+import { processUserData as aniUserData } from "./modules/providers/anilistUserList.mjs";
 import { createChart } from "./modules/visualizations/chart.mjs";
 import { processCharts } from "./modules/visualizations/chartHelper.mjs";
 import { addNavbar, addFooter } from "./templates/helper.mjs";
@@ -11,10 +13,18 @@ import { addNotification } from "./templates/notification.mjs";
 
 async function main() {
   let data = JSON.parse(localStorage.getItem("malProcessedData"));
-  if (!data || data === "null" || data === "undefined") {
+
+  const { forceUpdate = false, userId, provider } =
+    JSON.parse(localStorage.getItem("userlist_info")) || {};
+  if (forceUpdate) {
+    const processUserData = provider === "MAL" ? malUserData : aniUserData;
+    data = await processUserData(userId);
+  }
+  if (!data) {
     data = await processSampleData();
   }
-  const total = data.filter(({ score }) => score > 0).length;
+
+  const total = data.filter(({ score }) => score > 0).length || 1; // 1 to avoid displaying NaN
   const insights = data.reduce(
     (dic, n) => ({
       ...dic,
