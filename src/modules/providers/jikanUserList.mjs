@@ -2,10 +2,12 @@ import { sleep } from "../utils.mjs";
 import { BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./myAnimeList.mjs";
 
 let counter = 0;
-async function fetchUserData(userId) {
+async function fetchUserDataByPage(userId, page = 1) {
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
-  const rawData = await fetch(`${BASE_URL}/user/${userId}/animelist/all`);
+  const rawData = await fetch(
+    `${BASE_URL}/user/${userId}/animelist/all/${page}`
+  );
   const data = await rawData.json();
   return data;
 }
@@ -20,8 +22,8 @@ function getStatus(status) {
       return "";
   }
 }
-export function parseUserData(data) {
-  return (data.anime || []).map(node => ({
+function parseUserData(data = []) {
+  return data.map(node => ({
     id: node.mal_id,
     score: node.score,
     title: node.title,
@@ -32,6 +34,17 @@ export function parseUserData(data) {
     // INFO: this means that rewatches are not accounted for
     timesWatched: 1
   }));
+}
+
+// recursive function to continuously fetch list pages
+// (lists limited to 300 entries per page)
+// reference: https://jikan.docs.apiary.io/#reference/0/user
+async function fetchUserData(userId, page = 1) {
+  const { anime: data = [] } = (await fetchUserDataByPage(userId, page)) || {};
+  if (data.length === 300) {
+    return data.concat(await fetchUserData(userId, page + 1));
+  }
+  return data;
 }
 
 export async function processUserData(userId) {
