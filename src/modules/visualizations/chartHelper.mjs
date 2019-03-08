@@ -3,8 +3,8 @@ import { updateChart, filterChart } from "./chart.mjs";
 import { updateInsights, updateNotifications } from "./insights.mjs";
 import { metricReducer } from "../reducers/metricReducer.mjs";
 
-function updateCharts(rawData, expectedLength) {
-  updateNotifications(rawData.length, expectedLength);
+function updateCharts(rawData, length, expectedLength) {
+  updateNotifications(length, expectedLength);
   const data = metricReducer(rawData);
   Object.entries(data).forEach(([attributeKey, attributes]) => {
     Object.entries(attributes).forEach(([metricKey, metrics]) => {
@@ -28,13 +28,22 @@ const data = [];
 export async function processCharts(parsedMyData) {
   data.length = 0;
   const expectedLength = parsedMyData.length;
-  for (let i = 0; i < expectedLength; i += 1) {
-    const datum = parsedMyData[i];
-    anilist(datum.id).then(d => {
-      data.push({ ...datum, ...d });
-      debouncedUpdateCharts(data, expectedLength);
-    });
-  }
+  // do not `await` on anilist
+  // in order to process things in parallel
+  const allRequests = parsedMyData.map(datum => [anilist(datum.id), datum]);
+  allRequests.forEach(async ([request, datum]) => {
+    const response = await request;
+    if (typeof response === "function") {
+      // not using await on purpose (parallel execution)
+      response(datum.id).then(otherData => {
+        data.push({ ...datum, ...otherData });
+        debouncedUpdateCharts(data, data.length, expectedLength);
+      });
+    } else {
+      data.push({ ...datum, ...response });
+      debouncedUpdateCharts(data, data.length, expectedLength);
+    }
+  });
 }
 
 const filterReducer = (A = [], filters = []) =>

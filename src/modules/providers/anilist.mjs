@@ -42,38 +42,35 @@ export function makeRequest(id = 1, query = defaultQuery) {
   };
 }
 
+function anilistParser(data = {}) {
+  if (data && data.data && data.data.Media) {
+    const { data: { Media } = {} } = data;
+    // force a season value
+    Media.season = Media.season || getSeason(Media.startDate.month);
+    Media.studios = (Media.studios.edges || []).map(({ node = {} }) => node);
+    return Media;
+  }
+  return malParser(data);
+}
+
 let counter = 0;
 async function fetchById(animeId = 1) {
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
-  let response = await fetch(BASE_URL, makeRequest(animeId));
+  const response = await fetch(BASE_URL, makeRequest(animeId));
   if (response.ok && response.status - 200 < 99) {
     return response.json();
   }
   // too many requests
   if (response.status === 429) {
-    await sleep(RATE_LIMIT_T);
-    response = await fetch(BASE_URL, makeRequest(animeId));
-    return response.json();
+    return id => fetchToLocalStorage(id, fetchById, anilistParser);
   }
 
   // not found in anilist db, attempt to get it from other sources.
   if (response.status === 404) {
-    response = await malFetchById(animeId);
-    return { data: { Media: malParser(response) } };
+    return id => fetchToLocalStorage(id, malFetchById, anilistParser);
   }
   return null;
-}
-
-function anilistParser(data = {}) {
-  const { data: { Media } = {} } = data;
-  // force a season value
-  Media.season = Media.season || getSeason(Media.startDate.month);
-  // force studios revaluation only if the response used edges
-  if (Media.studios.edges) {
-    Media.studios = (Media.studios.edges || []).map(({ node = {} }) => node);
-  }
-  return Media;
 }
 
 export async function anilist(id) {

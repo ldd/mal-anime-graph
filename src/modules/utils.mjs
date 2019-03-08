@@ -8,11 +8,14 @@ export function get(node, p) {
 export async function fetchToLocalStorage(id, fetcher, parser) {
   const item = localStorage.getItem(id);
   if (!item || item === "undefined" || item === "null") {
-    const xmlDoc = await fetcher(id);
+    const response = await fetcher(id);
     try {
-      const data = parser(xmlDoc);
-      localStorage.setItem(id, JSON.stringify(data));
-      return data;
+      const data = parser(response);
+      if (data.id) {
+        localStorage.setItem(id, JSON.stringify(data));
+        return data;
+      }
+      return response;
     } catch (e) {
       // console.error(e);
       return {};
