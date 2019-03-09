@@ -1,12 +1,63 @@
-const chartMap = new Map();
+import { getPercentage, getDisplayValue } from "../utils.mjs";
 
-function getOptions(type) {
-  if (type === "bar") {
-    return { scales: { yAxes: [{ ticks: { beginAtZero: true } }] } };
+const chartMap = new Map();
+const isSmall = window.innerWidth < 500;
+
+function getOptions(type, attribute = "season", metric = "count") {
+  // update options
+  const entryType = metric === "duration" ? "min" : "entries";
+  let text = "";
+  if (metric === "count") text = "Total count";
+  if (metric === "duration") text = "Total minutes";
+  if (metric === "score") text = "Average score";
+  text = `${text} of anime watched by ${attribute}`;
+  if (type !== "pie") {
+    return {
+      responsive: true,
+      elements: {
+        line: {
+          borderDash: [11, 4],
+          fill: false,
+          borderColor: "gray"
+        }
+      },
+      legend: { display: false },
+      scales: {
+        xAxes: [
+          {
+            ticks: { maxTicksLimit: isSmall ? 5 : 10 },
+            gridLines: {
+              display: false
+            }
+          }
+        ],
+        yAxes: [
+          {
+            gridLines: {
+              drawBorder: false
+            },
+            ticks: { precision: 0, beginAtZero: true }
+          }
+        ]
+      }
+    };
   }
   if (type === "pie") {
     return {
-      legend: { position: "left" }
+      responsive: true,
+      title: { display: true, text },
+      legend: { position: "left" },
+      tooltips: {
+        callbacks: {
+          label({ datasetIndex, index }, { datasets }) {
+            const { data } = datasets[datasetIndex];
+            const total = data.reduce((sum, n) => sum + n, 0);
+            const entry = data[index];
+            const percentage = getPercentage(entry, total, "");
+            return `${percentage}% (${getDisplayValue(entry)} ${entryType})`;
+          }
+        }
+      }
     };
   }
   return null;
@@ -19,13 +70,13 @@ function getColors(type) {
       "rgba(210, 77, 87, 1)",
       "rgba(255, 148, 120, 1)"
     ];
-  return [];
+  return "gray";
 }
 export function createChart({
   id = "myChart",
-  type = "bar",
+  type = "line",
   labels = ["", "", ""],
-  data = [12, 19, 3]
+  data = [5, 5, 5]
 } = {}) {
   const parent = document.getElementById(`chart-container-${id}`);
   // return early if id is not found
@@ -33,9 +84,9 @@ export function createChart({
 
   const canvas = document.createElement("canvas");
   canvas.id = id;
-  canvas.style.maxWidth = "450px";
   canvas.style.minWidth = "0px";
   parent.appendChild(canvas);
+
   const context = canvas.getContext("2d");
   const myChart = new Chart(context, {
     type,
@@ -56,42 +107,28 @@ export function createChart({
   return myChart;
 }
 
-export function updateChart({ id, labels = [], data = [] } = {}) {
+function updateData(chart, labels, data) {
+  chart.data.labels = labels;
+  chart.data.datasets[0].data = data;
+}
+
+function updateConfig(chart, labels) {
+  if (chart.config.type === "line" && !Number.isNaN(labels[0])) {
+    if (labels.length < 6) {
+      chart.config = { ...chart.config, type: "bar" };
+    }
+  }
+}
+
+export function updateChart({ id, metric, labels = [], data = [] } = {}) {
   const chart = chartMap.get(id);
   if (chart && chart.data) {
-    // update data
-    chart.data.labels = labels;
-    chart.data.datasets[0].data = data;
-
-    // update options
-    const total = data.reduce((sum, n) => sum + n, 0);
-    const typeofEntry = id === "seasons-duration" ? "min" : "entries";
-    let text = "";
-    if (id === "seasons-duration") text = "Minutes of anime watched by season";
-    if (id === "seasons-count") text = "Number of anime watched by season";
-    chart.options = {
-      ...getOptions(chart.config.type),
-      title: { display: true, text },
-      tooltips: {
-        callbacks: {
-          label({ datasetIndex, index }, { datasets }) {
-            const entry = datasets[datasetIndex].data[index];
-            const percentage = Math.floor((entry / total) * 1000) / 10;
-            return `${percentage}% (${entry} ${typeofEntry})`;
-          }
-        }
-      }
-    };
+    updateData(chart, labels, data);
+    updateConfig(chart, labels);
+    const [attribute] = id.split("-");
+    chart.options = getOptions(chart.config.type, attribute, metric);
     chart.update();
   }
 }
 
-export function filterChart({ id, labels = [], data = [] } = {}) {
-  const chart = chartMap.get(id);
-  if (chart && chart.data) {
-    // update data
-    chart.data.labels = labels;
-    chart.data.datasets[0].data = data;
-    chart.update();
-  }
-}
+export const filterChart = updateChart;

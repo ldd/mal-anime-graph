@@ -26,3 +26,10 @@
 .hero-body > .columns > .column > .box {
   min-height: 325px;
 }
+/* for chartjs */
+/* view-source:https://www.chartjs.org/samples/latest/charts/line/line-styles.html */
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

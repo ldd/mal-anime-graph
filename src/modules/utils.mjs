@@ -31,3 +31,11 @@ export function getSeason(month = 0) {
   if (month < 9) return "SUMMER";
   return "FALL";
 }
+
+export function getPercentage(numerator, denominator, sign = "%") {
+  return `${((numerator / denominator) * 100).toFixed(2)}${sign}`;
+}
+
+export function getDisplayValue(n) {
+  return parseFloat(n.toFixed(2));
+}

@@ -12,6 +12,7 @@ function updateCharts(rawData, length, expectedLength) {
       const innerData = Object.values(metrics);
       updateChart({
         id: `${attributeKey}-${metricKey}`,
+        metric: metricKey,
         labels,
         data: innerData
       });
@@ -60,7 +61,7 @@ export function updateByFilter(id, { metric, filters }, inputData = data) {
     Object.keys(chartData),
     Object.values(chartData)
   ];
-  filterChart({ id, labels, data: innerValues });
+  filterChart({ id, metric, labels, data: innerValues });
 }
 
 export const updateByMetric = updateByFilter;
