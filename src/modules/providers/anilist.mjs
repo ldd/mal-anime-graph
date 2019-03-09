@@ -31,14 +31,14 @@ const defaultQuery = `
       }
     `;
 
-export function makeRequest(id = 1, query = defaultQuery) {
+export function makeRequest(variables = { id: 1 }, query = defaultQuery) {
   return {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify({ query, variables: { id } })
+    body: JSON.stringify({ query, variables })
   };
 }
 
@@ -57,7 +57,7 @@ let counter = 0;
 async function fetchById(animeId = 1) {
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
-  const response = await fetch(BASE_URL, makeRequest(animeId));
+  const response = await fetch(BASE_URL, makeRequest({ id: animeId }));
   if (response.ok && response.status - 200 < 99) {
     return response.json();
   }

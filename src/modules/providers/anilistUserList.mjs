@@ -10,8 +10,8 @@ import {
 
 // https://anilist.github.io/ApiV2-GraphQL-Docs/media.doc.html
 const query = `
-query ($id: String) {
-  MediaListCollection(userName: $id, type: ANIME) {
+query ($userId: String, $status: MediaListStatus) {
+  MediaListCollection(userName: $userId, type: ANIME, status: $status ) {
     lists {
       entries {
         status
@@ -31,10 +31,10 @@ query ($id: String) {
     `;
 
 let counter = 0;
-async function fetchUserData(userId) {
+async function fetchUserData(variables = { userId: "1" }) {
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
-  const rawData = await fetch(BASE_URL, makeRequest(userId, query));
+  const rawData = await fetch(BASE_URL, makeRequest(variables, query));
   const data = await rawData.json();
   return data;
 }
@@ -76,7 +76,7 @@ export function parseUserData(data) {
   });
 }
 
-export async function processUserData(userId) {
-  const myData = await fetchUserData(userId);
+export async function processUserData(...args) {
+  const myData = await fetchUserData(...args);
   return parseUserData(myData);
 }

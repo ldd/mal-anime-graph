@@ -13,7 +13,7 @@ async function main() {
     JSON.parse(localStorage.getItem("userlist_info")) || {};
   if (forceUpdate) {
     const processUserData = provider === "MAL" ? malUserData : aniUserData;
-    data = await processUserData(userId);
+    data = await processUserData({ userId });
   }
   if (!data) {
     data = await processSampleData();

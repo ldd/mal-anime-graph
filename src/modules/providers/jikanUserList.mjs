@@ -9,11 +9,12 @@ import {
 } from "./constants.mjs";
 
 let counter = 0;
-async function fetchUserDataByPage(userId, page = 1) {
+async function fetchUserDataByPage(page = 1, variables = {}) {
+  const { userId = "1", status = "all" } = variables;
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
   const rawData = await fetch(
-    `${BASE_URL}/user/${userId}/animelist/all/${page}`
+    `${BASE_URL}/user/${userId}/animelist/${status}/${page}`
   );
   const data = await rawData.json();
   return data;
@@ -52,15 +53,15 @@ function parseUserData(data = []) {
 // recursive function to continuously fetch list pages
 // (lists limited to 300 entries per page)
 // reference: https://jikan.docs.apiary.io/#reference/0/user
-async function fetchUserData(userId, page = 1) {
-  const { anime: data = [] } = (await fetchUserDataByPage(userId, page)) || {};
+async function fetchUserData(page = 1, ...args) {
+  const { anime: data = [] } = (await fetchUserDataByPage(page, ...args)) || {};
   if (data.length === 300) {
-    return data.concat(await fetchUserData(userId, page + 1));
+    return data.concat(await fetchUserData(page + 1, ...args));
   }
   return data;
 }
 
-export async function processUserData(userId) {
-  const myData = await fetchUserData(userId);
+export async function processUserData(...args) {
+  const myData = await fetchUserData(1, ...args);
   return parseUserData(myData);
 }
