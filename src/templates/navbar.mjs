@@ -33,6 +33,7 @@ export const navbarTemplate = () =>
           <ul>
             ${breadCrumbTemplate("Home", "./")}
             ${breadCrumbTemplate("Charts", "./charts.html")}
+            ${breadCrumbTemplate("Reconciler", "./reconciler.html")}
           </ul>
         </nav>
       </div>
