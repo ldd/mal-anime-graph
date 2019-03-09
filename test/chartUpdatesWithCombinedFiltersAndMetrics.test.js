@@ -11,33 +11,33 @@ describe("metricReducer", () => {
 
   test("1 entry, 1 filter", () => {
     updateByFilter("years", { metric: "count" });
-    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(1);
 
     const filters = [{ filter: () => true }];
     updateByFilter("years", { metric: "count", filters });
-    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(2);
   });
   test("1 entry, 1 simple filter", () => {
     const data = [{ type: "TV", startDate: { year: 2017 } }];
     const filters = [{ filter: () => true }];
     updateByFilter("years", { metric: "count", filters }, data);
-    expect(filterChart).toHaveBeenCalledWith({ data: [1], id: "years", labels: ["2017"] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [1], id: "years", labels: ["2017"], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(1);
   });
   test("1 entry, 1 filter", () => {
     const data = [{ type: "TV", startDate: { year: 2017 } }];
     const filters = [{ filter: ({ type }) => type !== "TV" }];
     updateByFilter("years", { metric: "count", filters }, data);
-    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [], id: "years", labels: [], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(1);
   });
   test("2 entries, 2 filters", () => {
     const data = [{ type: "TV", startDate: { year: 2019 } }, { type: "OVA", startDate: { year: 2017 } }];
     const filters = [{ filter: () => true }, { filter: ({ type }) => type !== "OVA" }];
     updateByFilter("years", { metric: "count", filters }, data);
-    expect(filterChart).toHaveBeenCalledWith({ data: [1], id: "years", labels: ["2019"] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [1], id: "years", labels: ["2019"], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(1);
   });
   test("many entries, many filters", () => {
@@ -54,7 +54,7 @@ describe("metricReducer", () => {
       { filter: ({ startDate: { year } }) => year > 2014 }
     ];
     updateByFilter("years", { metric: "count", filters }, data);
-    expect(filterChart).toHaveBeenCalledWith({ data: [2], id: "years", labels: ["2018"] });
+    expect(filterChart).toHaveBeenCalledWith({ data: [2], id: "years", labels: ["2018"], metric: "count" });
     expect(filterChart).toHaveBeenCalledTimes(1);
   });
   test("[score] many entries, many filters", () => {
@@ -73,7 +73,12 @@ describe("metricReducer", () => {
       { filter: ({ startDate: { year } }) => year > 2014 }
     ];
     updateByFilter("years", { metric: "score", filters }, data);
-    expect(filterChart).toHaveBeenCalledWith({ data: [7.5, 7], id: "years", labels: ["2017", "2018"] });
+    expect(filterChart).toHaveBeenCalledWith({
+      data: [7.5, 7],
+      id: "years",
+      labels: ["2017", "2018"],
+      metric: "score"
+    });
     expect(filterChart).toHaveBeenCalledTimes(1);
   });
 });
