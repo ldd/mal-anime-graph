@@ -3,13 +3,8 @@ import { processUserData as malUserData } from "./modules/providers/jikanUserLis
 import { processUserData as aniUserData } from "./modules/providers/anilistUserList.mjs";
 import { createChart } from "./modules/visualizations/chart.mjs";
 import { processCharts } from "./modules/visualizations/chartHelper.mjs";
-import { addNavbar, addFooter } from "./templates/helper.mjs";
-import { addChartOptions } from "./templates/charts/index.mjs";
-import {
-  addChartInsights,
-  updateChartInsights
-} from "./templates/charts/insights.mjs";
-import { addNotification } from "./templates/notification.mjs";
+import { updateChartInsights } from "./templates/charts/insights.mjs";
+import { addCharts } from "./templates/charts/index.mjs";
 
 async function main() {
   let data = JSON.parse(localStorage.getItem("malProcessedData"));
@@ -39,13 +34,7 @@ async function main() {
 }
 let FLAG = false;
 document.addEventListener("DOMContentLoaded", () => {
-  addNavbar();
-  addFooter();
-  addChartInsights();
-  addNotification();
-  addChartOptions("years-count");
-  addChartOptions("seasons-duration");
-  addChartOptions("seasons-count");
+  addCharts();
   // for a smooth user experience, we will wait until the initial mocked charts load
   // https://www.chartjs.org/docs/latest/configuration/animations.html#animation-callbacks
   Chart.defaults.global.animation.onComplete = () => {

@@ -1,6 +1,8 @@
 import { chartFilterTemplate } from "./filter.mjs";
 import { chartMetricTemplate } from "./metric.mjs";
-import { getElement, addElement } from "../helper.mjs";
+import { addNotification } from "../notification.mjs";
+import { addChartInsights } from "./insights.mjs";
+import { getElement, addElement, addNavbar, addFooter } from "../helper.mjs";
 import {
   watching,
   completed,
@@ -101,3 +103,13 @@ export const addChartOptions = (
     clickHandler: metricClickHandler
   });
 };
+
+export function addCharts() {
+  addNavbar();
+  addFooter();
+  addChartInsights();
+  addNotification();
+  addChartOptions("years-count");
+  addChartOptions("seasons-duration");
+  addChartOptions("seasons-count");
+}
