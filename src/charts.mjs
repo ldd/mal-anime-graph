@@ -4,7 +4,7 @@ import { processUserData as aniUserData } from "./modules/providers/anilistUserL
 import { createChart } from "./modules/visualizations/chart.mjs";
 import { processCharts } from "./modules/visualizations/chartHelper.mjs";
 import { addNavbar, addFooter } from "./templates/helper.mjs";
-import { addChartOptions } from "./templates/charts/options.mjs";
+import { addChartOptions } from "./templates/charts/index.mjs";
 import {
   addChartInsights,
   updateChartInsights
