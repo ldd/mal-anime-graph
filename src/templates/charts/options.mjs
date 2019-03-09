@@ -8,6 +8,37 @@ import {
   dropped,
   planToWatch
 } from "../../modules/providers/constants.mjs";
+import {
+  updateByFilter,
+  updateByMetric
+} from "../../modules/visualizations/chartHelper.mjs";
+
+const filterClickHandler = (e, { state, index, chartId } = {}) => {
+  const innerState = state.filters[index].options;
+  if (e.target.tagName === "BUTTON") {
+    e.target.parentNode.parentNode.classList.toggle("is-active");
+  } else {
+    e.target.classList.toggle("is-active");
+    const { value } = e.target.dataset;
+    innerState[value].selected = !innerState[value].selected;
+    updateByFilter(chartId, state);
+  }
+};
+
+const metricClickHandler = (e, { state, chartId } = {}) => {
+  Array.from(e.target.parentNode.children).forEach(option => {
+    if (e.target === option) {
+      option.classList.add("is-primary");
+      option.classList.add("is-selected");
+      const { value } = option.dataset;
+      state.metric = value;
+      updateByMetric(chartId, state);
+    } else {
+      option.classList.remove("is-primary");
+      option.classList.remove("is-selected");
+    }
+  });
+};
 
 export const addChartOptions = (
   chartId,
@@ -61,6 +92,12 @@ export const addChartOptions = (
     parent
   );
   // add filters & metrics
-  addElement(chartFilterTemplate, filters, chartId, state);
-  addElement(chartMetricTemplate, metrics, chartId, state);
+  addElement(chartFilterTemplate, filters, state, {
+    chartId,
+    clickHandler: filterClickHandler
+  });
+  addElement(chartMetricTemplate, metrics, state, {
+    chartId,
+    clickHandler: metricClickHandler
+  });
 };

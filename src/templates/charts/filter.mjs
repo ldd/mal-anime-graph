@@ -1,27 +1,13 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { updateByFilter } from "../../modules/visualizations/chartHelper.mjs";
 
 const ID_BASE = "filter-dropdown";
 
-const clickHandler = (e, { state, index, chartId } = {}) => {
-  // e.stopPropagation();
-  const innerState = state.filters[index].options;
-  if (e.target.tagName === "BUTTON") {
-    e.target.parentNode.parentNode.classList.toggle("is-active");
-  } else {
-    e.target.classList.toggle("is-active");
-    const { value } = e.target.dataset;
-    innerState[value].selected = !innerState[value].selected;
-    updateByFilter(chartId, state);
-  }
-};
-
 // This is a lit-html template function.
 export const chartFilterTemplate = (
-  chartId,
   state = {
     filters: []
-  }
+  },
+  { chartId, clickHandler } = {}
 ) => {
   return html`
     <div class="column">
