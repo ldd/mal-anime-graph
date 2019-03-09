@@ -1,13 +1,13 @@
-import { chartFilterTemplate } from "./chartFilter.mjs";
-import { chartMetricTemplate } from "./chartMetric.mjs";
-import { getElement, addElement } from "./helper.mjs";
+import { chartFilterTemplate } from "./filter.mjs";
+import { chartMetricTemplate } from "./metric.mjs";
+import { getElement, addElement } from "../helper.mjs";
 import {
   watching,
   completed,
   onHold,
   dropped,
   planToWatch
-} from "../modules/providers/constants.mjs";
+} from "../../modules/providers/constants.mjs";
 
 export const addChartOptions = (
   chartId,

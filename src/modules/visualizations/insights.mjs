@@ -1,4 +1,4 @@
-import { updateChartInsights } from "../../templates/chartInsights.mjs";
+import { updateChartInsights } from "../../templates/charts/insights.mjs";
 import { updateNotification } from "../../templates/notification.mjs";
 
 const maxReducer = (max, [key, value]) =>

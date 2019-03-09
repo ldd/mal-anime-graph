@@ -1,5 +1,5 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { updateByMetric } from "../modules/visualizations/chartHelper.mjs";
+import { updateByMetric } from "../../modules/visualizations/chartHelper.mjs";
 
 const clickHandler = (e, { state, chartId } = {}) => {
   Array.from(e.target.parentNode.children).forEach(option => {

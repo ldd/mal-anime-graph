@@ -4,13 +4,12 @@ import { processUserData as aniUserData } from "./modules/providers/anilistUserL
 import { createChart } from "./modules/visualizations/chart.mjs";
 import { processCharts } from "./modules/visualizations/chartHelper.mjs";
 import { addNavbar, addFooter } from "./templates/helper.mjs";
-import { addChartOptions } from "./templates/chartOptions.mjs";
+import { addChartOptions } from "./templates/charts/options.mjs";
 import {
   addChartInsights,
   updateChartInsights
-} from "./templates/chartInsights.mjs";
+} from "./templates/charts/insights.mjs";
 import { addNotification } from "./templates/notification.mjs";
-import { dropped } from "./modules/providers/constants.mjs";
 
 async function main() {
   let data = JSON.parse(localStorage.getItem("malProcessedData"));

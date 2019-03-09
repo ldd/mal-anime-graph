@@ -1,6 +1,4 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { processUserData as malUserData } from "../modules/providers/jikanUserList.mjs";
-import { processUserData as aniUserData } from "../modules/providers/anilistUserList.mjs";
 import { getElement, addElement } from "./helper.mjs";
 
 const providerClickHandler = (event, { state }) => {

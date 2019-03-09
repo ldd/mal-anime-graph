@@ -1,5 +1,5 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { updateByFilter } from "../modules/visualizations/chartHelper.mjs";
+import { updateByFilter } from "../../modules/visualizations/chartHelper.mjs";
 
 const ID_BASE = "filter-dropdown";
 

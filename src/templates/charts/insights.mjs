@@ -1,5 +1,5 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
-import { getElement, addElement } from "./helper.mjs";
+import { getElement, addElement } from "../helper.mjs";
 
 const insightTemplate = (label, value) => html`
   <p

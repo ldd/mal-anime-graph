@@ -1,6 +1,6 @@
 import { html, render } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
-import { navbarTemplate } from "./navbar.mjs";
-import { footerTemplate } from "./footer.mjs";
+import { navbarTemplate } from "./common/navbar.mjs";
+import { footerTemplate } from "./common/footer.mjs";
 
 const emptyTemplate = () => html``;
 
