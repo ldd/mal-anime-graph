@@ -16,3 +16,8 @@
 #user-selection-form {
   margin-top: 50px;
 }
+
+.hero.is-bold,
+body {
+  min-height: 100vh;
+}
