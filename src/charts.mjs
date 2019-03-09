@@ -24,18 +24,18 @@ async function main() {
   if (!data) {
     data = await processSampleData();
   }
-  data = data.filter(({ status }) => status !== dropped);
-  const total = data.filter(({ score }) => score > 0).length || 1; // 1 to avoid displaying NaN
-  const insights = data.reduce(
+  data = data.filter(({ score }) => score > 0);
+
+  const { score, episodesWatched } = data.reduce(
     (dic, n) => ({
       ...dic,
-      score:
-        Math.floor((((dic.score || 0) * total + n.score) / total) * 100) / 100,
+      score: dic.score + n.score,
       episodesWatched: (dic.episodesWatched || 0) + n.episodesWatched
     }),
     { score: 0, episodesWatched: 0 }
   );
-  updateChartInsights(insights);
+  const total = data.length || 1; // 1 to avoid displaying NaN
+  updateChartInsights({ score: (score / total).toFixed(2), episodesWatched });
   return processCharts(data);
 }
 let FLAG = false;
