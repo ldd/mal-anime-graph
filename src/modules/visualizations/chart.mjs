@@ -113,9 +113,13 @@ function updateData(chart, labels, data) {
 }
 
 function updateConfig(chart, labels) {
-  if (chart.config.type === "line" && !Number.isNaN(labels[0])) {
+  if (!Number.isNaN(labels[0])) {
     if (labels.length < 6) {
-      chart.config = { ...chart.config, type: "bar" };
+      if (chart.config.type === "line") {
+        chart.config = { ...chart.config, type: "bar" };
+      }
+    } else {
+      chart.config = { ...chart.config, type: "line" };
     }
   }
 }
