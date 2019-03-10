@@ -1,12 +1,6 @@
 import { sleep } from "../utils.mjs";
 import { makeRequest, BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./anilist.mjs";
-import {
-  watching,
-  completed,
-  onHold,
-  dropped,
-  planToWatch
-} from "./constants.mjs";
+import { parseAniStatus } from "./constants.mjs";
 
 // https://anilist.github.io/ApiV2-GraphQL-Docs/media.doc.html
 const query = `
@@ -39,26 +33,6 @@ async function fetchUserData(variables = { userId: "1" }) {
   return data;
 }
 
-// https://anilist.github.io/ApiV2-GraphQL-Docs/medialiststatus.doc.html
-function parseStatus(status) {
-  switch (status) {
-    case "CURRENT":
-      return watching;
-    case "PLANNING":
-      return planToWatch;
-    case "COMPLETED":
-      return completed;
-    case "DROPPED":
-      return dropped;
-    case "PAUSED":
-      return onHold;
-    case "REPEATING":
-      return completed;
-    default:
-      return "";
-  }
-}
-
 export function parseUserData(data) {
   return data.data.MediaListCollection.lists.flatMap(e => {
     return e.entries.map(node => {
@@ -67,7 +41,7 @@ export function parseUserData(data) {
         score: node.score,
         title: node.media.title.romaji,
         type: node.media.format,
-        status: parseStatus(node.status),
+        status: parseAniStatus(node.status),
         episodes: node.media.episodes,
         episodesWatched: node.progress,
         timesWatched: node.repeat

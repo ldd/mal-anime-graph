@@ -1,12 +1,6 @@
 import { sleep } from "../utils.mjs";
 import { BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./myAnimeList.mjs";
-import {
-  watching,
-  completed,
-  onHold,
-  dropped,
-  planToWatch
-} from "./constants.mjs";
+import { parseMalStatus } from "./constants.mjs";
 
 let counter = 0;
 async function fetchUserDataByPage(page = 1, variables = {}) {
@@ -20,29 +14,13 @@ async function fetchUserDataByPage(page = 1, variables = {}) {
   return data;
 }
 
-function getStatus(status) {
-  switch (status) {
-    case 1:
-      return watching;
-    case 2:
-      return completed;
-    case 3:
-      return onHold;
-    case 4:
-      return dropped;
-    case 6:
-      return planToWatch;
-    default:
-      return "";
-  }
-}
 function parseUserData(data = []) {
   return data.map(node => ({
     id: node.mal_id,
     score: node.score,
     title: node.title,
     type: node.type,
-    status: getStatus(node.watching_status),
+    status: parseMalStatus(node.watching_status),
     episodes: node.total_episodes,
     episodesWatched: node.watched_episodes,
     // INFO: this means that rewatches are not accounted for

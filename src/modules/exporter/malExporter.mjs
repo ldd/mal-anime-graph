@@ -1,9 +1,11 @@
+import { watching } from "../providers/constants.mjs";
+
 const buildAnimeEntry = ({
   id = "",
   episodesWatched = "",
   timesWatched = 1,
   score = 0,
-  status = "Watching"
+  status = watching
 }) => `
 <anime>
   <series_animedb_id>${id}</series_animedb_id>
