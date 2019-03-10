@@ -1,3 +1,4 @@
+// templates
 import { getElement, addElement } from "../helper.mjs";
 import { checkboxTemplate, usernameTemplate } from "./usernameInput.mjs";
 import { svgSyncTemplate } from "./svgSync.mjs";
@@ -8,6 +9,9 @@ import {
   container,
   columnsTemplate
 } from "../common/index.mjs";
+
+// functionality
+import { exportUserListData } from "../../modules/exporter/index.mjs";
 
 const submitButtonTemplate = state =>
   buttonTemplate(
@@ -24,7 +28,7 @@ const submitButtonTemplate = state =>
           malUsername = document.getElementById("MAL-username-input").value;
           aniUsername = document.getElementById("ANILIST-username-input").value;
         }
-        console.log(state, malUsername, aniUsername);
+        exportUserListData(malUsername, aniUsername);
       }
     },
     state
