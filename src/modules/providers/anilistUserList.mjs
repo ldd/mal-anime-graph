@@ -38,12 +38,15 @@ let counter = 0;
 async function fetchUserData(variables = { userId: "1" }) {
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
-  const rawData = await fetch(BASE_URL, makeRequest(variables, query));
-  const data = await rawData.json();
-  return data;
+  const response = await fetch(BASE_URL, makeRequest(variables, query));
+  if (response.ok) {
+    return response.json();
+  }
+  return undefined;
 }
 
-export function parseUserData(data) {
+function parseUserData(data) {
+  if (!data) return [];
   return data.data.MediaListCollection.lists.flatMap(e => {
     return e.entries.map(node => {
       return {
