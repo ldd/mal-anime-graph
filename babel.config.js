@@ -23,7 +23,7 @@ module.exports = {
               },
               {
                 original: "^(.+?)if-defined\\.js\\?module$",
-                replacement: "lit-html/lit-html.js"
+                replacement: "lit-html/directives/if-defined.js"
               },
               {
                 original: "https://unpkg.com/debounce@1.2.0/index.js",
