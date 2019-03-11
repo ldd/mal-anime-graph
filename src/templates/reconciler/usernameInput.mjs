@@ -18,7 +18,7 @@ export const checkboxTemplate = ({ clickHandler } = {}) => html`
   </div>
 `;
 const userInputTemplate = (provider = {}) => html`
-  <div class="control">
+  <div class="control is-expanded">
     <input
       aria-label="username"
       placeholder="USERNAME"
