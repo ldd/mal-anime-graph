@@ -21,6 +21,8 @@ export default [
         "src/charts.html": "dist/charts.html",
         "src/charts.css": "dist/charts.css",
         "src/data/": "dist/data/",
+        // reconciler files
+        "src/reconciler.html": "dist/reconciler.html",
         verbose: true
       })
     ]
@@ -29,6 +31,14 @@ export default [
     input: "src/charts.mjs",
     output: {
       file: "dist/charts.mjs",
+      format: "esm"
+    },
+    plugins: [terser()]
+  },
+  {
+    input: "src/reconciler.mjs",
+    output: {
+      file: "dist/reconciler.mjs",
       format: "esm"
     },
     plugins: [terser()]
