@@ -16,6 +16,19 @@ async function fetchUserDataByPage(page = 1, variables = {}) {
   return data;
 }
 
+function parseDate(dateString) {
+  if (!dateString) {
+    return undefined;
+  }
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  let month = date.getMonth();
+  month = month < 9 ? `0${month + 1}` : month + 1;
+  let day = date.getDay();
+  day = day <= 9 ? `0${day}` : day;
+  return `${year}-${month}-${day}`;
+}
+
 function parseUserData(data = []) {
   return data.map(node => ({
     id: node.mal_id,
@@ -26,7 +39,12 @@ function parseUserData(data = []) {
     episodes: node.total_episodes,
     episodesWatched: node.watched_episodes,
     // INFO: this means that rewatches are not accounted for
-    timesWatched: 1
+    timesWatched: 1,
+    tags: node.tags ? node.tags : undefined,
+    storage: node.storage ? node.storage : undefined,
+    priority: node.priority,
+    watchStartDate: parseDate(node.watch_start_date),
+    watchEndDate: parseDate(node.watch_end_date)
   }));
 }
 

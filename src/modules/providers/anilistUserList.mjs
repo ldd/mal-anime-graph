@@ -12,6 +12,8 @@ query ($userId: String, $status: MediaListStatus) {
         score(format: POINT_10)
         progress
         repeat
+        startedAt { year, month, day }
+        completedAt { year, month, day }
         media {
           format
           idMal
@@ -23,6 +25,14 @@ query ($userId: String, $status: MediaListStatus) {
   }
 }
     `;
+function parseYear({ year, month, day } = {}) {
+  if (!year || !month || !day) {
+    return undefined;
+  }
+  const parsedMonth = month <= 9 ? `0${month}` : month;
+  const parsedDay = day <= 9 ? `0${day}` : day;
+  return `${year}-${parsedMonth}-${parsedDay}`;
+}
 
 let counter = 0;
 async function fetchUserData(variables = { userId: "1" }) {
@@ -44,7 +54,9 @@ export function parseUserData(data) {
         status: parseAniStatus(node.status),
         episodes: node.media.episodes,
         episodesWatched: node.progress,
-        timesWatched: node.repeat
+        timesWatched: node.repeat,
+        watchStartDate: parseYear(node.startedAt),
+        watchEndDate: parseYear(node.completedAt)
       };
     });
   });
