@@ -20,5 +20,5 @@ export function updateInsights(rawData, attribute) {
 }
 
 export function updateNotifications(length, expectedLength) {
-  updateNotification(length, expectedLength);
+  updateNotification({ length, expectedLength });
 }

@@ -3,6 +3,18 @@ import { getElement, addElement } from "./helper.mjs";
 
 let closeHandler = () => {};
 
+// TODO: lit-html needs to be updated to better handle conditional attributes
+const progressTemplate = value =>
+  value
+    ? html`
+        <progress class="progress is-success" value="${value}" max="100">
+          ${value}%
+        </progress>
+      `
+    : html`
+        <progress class="progress is-success" max="100"></progress>
+      `;
+
 const notificationTemplate = (state = {}) => {
   const { isActive = true, length, expectedLength } = state;
   let progress;
@@ -19,9 +31,7 @@ const notificationTemplate = (state = {}) => {
         <div id="notification-progress" class="notification is-small">
           <button class="delete" on-click=${closeHandler}></button>
           <p style="margin-bottom:0.5em">${text}</p>
-          <progress class="progress is-success" value="${progress}" max="100"
-            >${progress}%</progress
-          >
+          ${progressTemplate(progress)}
         </div>
       `
     : html``;
@@ -32,7 +42,11 @@ export function addNotification() {
   addElement(notificationTemplate, parent);
 }
 
-export function updateNotification(length, expectedLength, isActive = true) {
+export function updateNotification({
+  length,
+  expectedLength,
+  isActive = true
+} = {}) {
   const parent = getElement("notification-container", "div", "");
   addElement(notificationTemplate, parent, {
     isActive,
@@ -42,5 +56,7 @@ export function updateNotification(length, expectedLength, isActive = true) {
 }
 
 closeHandler = () => {
-  updateNotification(0, 0, false);
+  // we reset length and expectedLength to 0 so nothing funny happens when
+  // displaying notifications again
+  updateNotification({ length: 0, expectedLength: 0, isActive: false });
 };
