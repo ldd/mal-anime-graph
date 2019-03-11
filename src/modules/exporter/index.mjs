@@ -2,7 +2,10 @@ import { malXMLString } from "./malExporter.mjs";
 import { processUserData as processMalUserData } from "../providers/jikanUserList.mjs";
 import { processUserData as processAniUserData } from "../providers/anilistUserList.mjs";
 import { watching, aniStatuses } from "../providers/constants.mjs";
-import { updateNotification } from "../../templates/common/notification.mjs";
+import {
+  updateNotification,
+  updateNotificationDanger
+} from "../../templates/common/notification.mjs";
 
 // https://stackoverflow.com/a/30832210
 function saveFile({ data, filename = "list.xml", type = "text/xml" } = {}) {
@@ -83,10 +86,18 @@ export async function exportUserListData(malId, aniId = malId) {
     userId: aniId,
     status: aniStatuses.watching
   });
-  const malData = await promiseMalData;
-  updateNotification({ length: 1, expectedLength: 2 });
   const aniData = await promisedAniData;
-  updateNotification({ length: 2, expectedLength: 2 });
+  if (aniData && aniData.length) {
+    updateNotification({ length: 1, expectedLength: 2 });
+  } else {
+    updateNotificationDanger({ text: "No user data found =/ " });
+  }
+  const malData = await promiseMalData;
+  if (malData && malData.length) {
+    updateNotification({ length: 2, expectedLength: 2 });
+  } else {
+    updateNotificationDanger({ text: "No user data found =/ " });
+  }
 
   const [malDiff, aniDiff] = getDifferences(malData, aniData);
   if (malDiff && malDiff.length) {
