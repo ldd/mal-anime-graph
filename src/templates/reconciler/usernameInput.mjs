@@ -5,7 +5,7 @@ export const checkboxTemplate = ({ clickHandler } = {}) => html`
     <div class="field">
       <input
         @click=${clickHandler}
-        class="is-checkradio has-background-color"
+        class="is-checkradio is-white"
         id="exampleCheckbox"
         type="checkbox"
         name="exampleCheckbox"
