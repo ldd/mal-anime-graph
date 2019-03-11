@@ -1,14 +1,16 @@
 import { sleep } from "../utils.mjs";
 import { BASE_URL, RATE_LIMIT, RATE_LIMIT_T } from "./myAnimeList.mjs";
-import { parseMalStatus } from "./constants.mjs";
+import { parseMalStatus, jikanStatuses } from "./constants.mjs";
 
 let counter = 0;
 async function fetchUserDataByPage(page = 1, variables = {}) {
   const { userId = "1", status = "all" } = variables;
   counter += 1;
   await sleep(Math.floor(counter / RATE_LIMIT) * RATE_LIMIT_T);
+  // jikan actually expects a different status from the default one
+  // e.g: "watching" instead of "Watching"
   const rawData = await fetch(
-    `${BASE_URL}/user/${userId}/animelist/${status}/${page}`
+    `${BASE_URL}/user/${userId}/animelist/${jikanStatuses[status]}/${page}`
   );
   const data = await rawData.json();
   return data;

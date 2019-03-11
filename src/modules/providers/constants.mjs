@@ -13,6 +13,15 @@ export const malStatuses = {
   onHold
 };
 
+export const jikanStatuses = {
+  [watching]: "watching",
+  [planToWatch]: "plantowatch",
+  [completed]: "completed",
+  [dropped]: "dropped",
+  [onHold]: "onhold",
+  all: "all"
+};
+
 export const aniStatuses = {
   watching: "CURRENT",
   planToWatch: "PLANNING",
