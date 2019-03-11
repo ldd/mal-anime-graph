@@ -33,9 +33,7 @@ const buildAnimeEntry = ({
 </anime>
 `;
 
-const buildUserInfo = ({ id }) => `<myinfo>
-  <user_id>${id}</user_id>
-  <user_name>ldd</user_name>
+const buildUserInfo = () => `<myinfo>
   <user_export_type>1</user_export_type>
 </myinfo>
 `;
