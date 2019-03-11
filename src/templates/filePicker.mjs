@@ -9,6 +9,7 @@ const reader = new FileReader();
 reader.onloadend = () => {
   const parsedMyData = parseMyData(reader.result);
   localStorage.setItem("malProcessedData", JSON.stringify(parsedMyData));
+  localStorage.removeItem("userlist_info");
   window.location.href = "./charts.html";
 };
 
