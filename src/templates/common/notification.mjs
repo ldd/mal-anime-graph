@@ -1,5 +1,5 @@
 import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
-import { getElement, addElement } from "./helper.mjs";
+import { getElement, addElement } from "../helper.mjs";
 
 let closeHandler = () => {};
 

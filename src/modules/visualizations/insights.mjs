@@ -1,5 +1,5 @@
 import { updateChartInsights } from "../../templates/charts/insights.mjs";
-import { updateNotification } from "../../templates/notification.mjs";
+import { updateNotification } from "../../templates/common/notification.mjs";
 
 const maxReducer = (max, [key, value]) =>
   max.value > value ? max : { key, value };

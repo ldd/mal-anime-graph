@@ -1,6 +1,6 @@
 import { chartFilterTemplate } from "./filter.mjs";
 import { chartMetricTemplate } from "./metric.mjs";
-import { addNotification } from "../notification.mjs";
+import { addNotification } from "../common/notification.mjs";
 import { addChartInsights } from "./insights.mjs";
 import { getElement, addElement, addNavbar, addFooter } from "../helper.mjs";
 import {
