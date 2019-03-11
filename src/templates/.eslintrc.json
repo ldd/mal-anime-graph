@@ -1,12 +1,12 @@
 {
   "rules": {
-    "import/extensions": [1, { "mjs": "always", "js": "always" }],
+    "import/extensions": [1, { "mjs": "always", "js?module": "always" }],
     "import/no-unresolved": [
       1,
       {
         "ignore": [
-          "https://unpkg.com/lit-html@0.10.0/lit-html.js",
-          "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js"
+          "^(.+?)lit-html\\.js\\?module$",
+          "^(.+?)if-defined\\.js\\?module$"
         ]
       }
     ]

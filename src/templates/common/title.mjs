@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 export const titleTemplate = ({ title, subtitle }) => html`
   <div class="container has-text-centered">

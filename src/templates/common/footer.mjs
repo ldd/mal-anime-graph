@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 // This is a lit-html template function.
 export const footerTemplate = () =>

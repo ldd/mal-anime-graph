@@ -1,4 +1,4 @@
-import { svg } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { svg } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 export const svgSyncTemplate = () => svg`
   <svg viewBox="0 0 200 200" style="position:absolute" xmlns="http://www.w3.org/2000/svg" width="100%" height="200px">

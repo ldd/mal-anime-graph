@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 const ID_BASE = "filter-dropdown";
 
@@ -18,7 +18,7 @@ export const chartFilterTemplate = (
             class="dropdown"
             id="${id}-${ID_BASE}-${chartId}"
             style="vertical-align:middle"
-            on-click=${e => clickHandler(e, { state, index, chartId })}
+            @click=${e => clickHandler(e, { state, index, chartId })}
           >
             <div class="dropdown-trigger">
               <button
@@ -36,10 +36,7 @@ export const chartFilterTemplate = (
                   // https://github.com/Polymer/lit-html/issues/194#issuecomment-345482860
                   ([optionId, { label: optionLabel }]) =>
                     html`
-                      <a
-                        class="dropdown-item is-active"
-                        data-value$=${optionId}
-                      >
+                      <a class="dropdown-item is-active" data-value=${optionId}>
                         ${optionLabel}
                       </a>
                     `

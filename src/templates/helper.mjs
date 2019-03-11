@@ -1,4 +1,7 @@
-import { html, render } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
+import {
+  html,
+  render
+} from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 import { navbarTemplate } from "./common/navbar.mjs";
 import { footerTemplate } from "./common/footer.mjs";
 

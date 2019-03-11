@@ -1,10 +1,13 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
+import { ifDefined } from "https://unpkg.com/lit-html@1.0.0/directives/if-defined.js?module";
 
 const breadCrumbTemplate = (label, href) => {
   const isActive = window.location.pathname.includes(label);
+  const classList = isActive ? "is-active" : undefined;
+  const aria = isActive ? "page" : undefined;
   return html`
-    <li class=${isActive ? "is-active" : ""}>
-      <a href="${href}" aria-current=${isActive ? "aria-current" : ""}>
+    <li class=${ifDefined(classList)}>
+      <a href="${href}" aria-current=${ifDefined(aria)}>
         ${label}
       </a>
     </li>
@@ -33,7 +36,7 @@ export const navbarTemplate = () =>
           <ul>
             ${breadCrumbTemplate("Home", "./")}
             ${breadCrumbTemplate("Charts", "./charts.html")}
-            ${breadCrumbTemplate("Reconciler", "./reconciler.html")}
+            ${breadCrumbTemplate("reconciler", "./reconciler.html")}
           </ul>
         </nav>
       </div>

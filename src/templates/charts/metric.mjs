@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 const firstClassList = "button is-primary is-selected";
 const otherClassList = "button";
@@ -22,16 +22,16 @@ export const chartMetricTemplate = (
       <div
         class="buttons has-addons"
         style="display:inline-flex"
-        on-click=${e => clickHandler(e, { state, chartId })}
+        @click=${e => clickHandler(e, { state, chartId })}
       >
         ${metrics.map(
           ({ id, label }) =>
             html`
               <span
-                className="${chartId.includes(id)
+                class="${chartId.includes(id)
                   ? firstClassList
                   : otherClassList}"
-                data-value$=${id}
+                data-value=${id}
               >
                 ${label}
               </span>

@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 import { getElement, addElement } from "../helper.mjs";
 
 let closeHandler = () => {};
@@ -29,7 +29,7 @@ const notificationTemplate = (state = {}) => {
   return isActive
     ? html`
         <div id="notification-progress" class="notification is-small">
-          <button class="delete" on-click=${closeHandler}></button>
+          <button class="delete" @click=${closeHandler}></button>
           <p style="margin-bottom:0.5em">${text}</p>
           ${progressTemplate(progress)}
         </div>

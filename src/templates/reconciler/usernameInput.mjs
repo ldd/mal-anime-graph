@@ -1,10 +1,10 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lit-html.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 export const checkboxTemplate = ({ clickHandler } = {}) => html`
   <div class="column">
     <div class="field">
       <input
-        on-click=${clickHandler}
+        @click=${clickHandler}
         class="is-checkradio has-background-color"
         id="exampleCheckbox"
         type="checkbox"
@@ -46,7 +46,7 @@ export const usernameTemplate = (state = {}) => {
                   <div class="field has-addons" id="user-list-selection">
                     <div class="control">
                       <button
-                        className="button ${provider.text === "MAL"
+                        class="button ${provider.text === "MAL"
                           ? "is-info"
                           : "is-dark"}"
                         id="user-list-selection-provider"

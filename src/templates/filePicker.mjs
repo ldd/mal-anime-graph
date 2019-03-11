@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 import { parseMyData } from "../modules/providers/malUserList.mjs";
 import { getElement, addElement } from "./helper.mjs";
 
@@ -25,7 +25,7 @@ const voidHandler = event => {
 };
 
 const filePickerTemplate = () => html`
-  <div class="box" on-drop=${dropHandler} on-dragover=${voidHandler}>
+  <div class="box" @drop=${dropHandler} @dragover=${voidHandler}>
     <div class="file-box" draggable="true">
       <p>Drop your XML here</p>
     </div>
@@ -36,7 +36,7 @@ const filePickerTemplate = () => html`
           id="file-selection-input"
           class="file-input"
           name="resume"
-          on-change=${dropHandler}
+          @change=${dropHandler}
         />
         <span class="file-cta">
           <span class="file-icon">

@@ -1,4 +1,4 @@
-import { html } from "https://unpkg.com/lit-html@0.10.0/lib/lit-extended.js";
+import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
 
 export const statusPickerTemplate = ({ state = {}, clickHandler } = {}) => html`
     <div class="column">
@@ -12,7 +12,7 @@ export const statusPickerTemplate = ({ state = {}, clickHandler } = {}) => html`
                   type="checkbox"
                   name="exampleCheckboxNoBorderDefault"
                   checked="${isChecked}"
-                  on-click=${() => clickHandler(status, isChecked)}
+                  @click=${() => clickHandler(status, isChecked)}
                 />
                 <label for="exampleCheckboxNoBorderDefault">
                   ${status}
