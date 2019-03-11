@@ -18,17 +18,29 @@ const submitButtonTemplate = state =>
     {
       text: "SUBMIT",
       classList: "is-primary is-inverted is-outlined",
-      clickHandler: () => {
+      clickHandler: event => {
+        const commonElement = document.getElementById("common-username-input");
+        const malElement = document.getElementById("MAL-username-input");
+        const aniElement = document.getElementById("ANILIST-username-input");
         let malUsername;
         let aniUsername;
-        if (state.simpleUsername) {
-          malUsername = document.getElementById("common-username-input").value;
+        if (state.simpleUsername && commonElement) {
+          malUsername = commonElement.value;
           aniUsername = malUsername;
+          if (commonElement) commonElement.disabled = true;
         } else {
-          malUsername = document.getElementById("MAL-username-input").value;
-          aniUsername = document.getElementById("ANILIST-username-input").value;
+          malUsername = malElement.value;
+          aniUsername = aniElement.value;
+          if (malElement) malElement.disabled = true;
+          if (aniElement) aniElement.disabled = true;
         }
-        exportUserListData(malUsername, aniUsername);
+        event.target.classList.add("is-loading");
+        exportUserListData(malUsername, aniUsername).then(() => {
+          event.target.classList.remove("is-loading");
+          if (commonElement) commonElement.disabled = false;
+          if (malElement) malElement.disabled = false;
+          if (aniElement) aniElement.disabled = false;
+        });
       }
     },
     state

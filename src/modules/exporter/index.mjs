@@ -2,6 +2,7 @@ import { malXMLString } from "./malExporter.mjs";
 import { processUserData as processMalUserData } from "../providers/jikanUserList.mjs";
 import { processUserData as processAniUserData } from "../providers/anilistUserList.mjs";
 import { watching, aniStatuses } from "../providers/constants.mjs";
+import { updateNotification } from "../../templates/common/notification.mjs";
 
 // https://stackoverflow.com/a/30832210
 function saveFile({ data, filename = "list.xml", type = "text/xml" } = {}) {
@@ -62,6 +63,7 @@ export function getDifferences(malData, aniData = malData) {
 }
 
 export async function exportUserListData(malId, aniId = malId) {
+  updateNotification({ length: 0, expectedLength: 2 });
   const promiseMalData = processMalUserData({
     userId: malId,
     status: watching
@@ -71,7 +73,9 @@ export async function exportUserListData(malId, aniId = malId) {
     status: aniStatuses.watching
   });
   const malData = await promiseMalData;
+  updateNotification({ length: 1, expectedLength: 2 });
   const aniData = await promisedAniData;
+  updateNotification({ length: 2, expectedLength: 2 });
 
   const [malDiff, aniDiff] = getDifferences(malData, aniData);
   if (malDiff && malDiff.length) {
