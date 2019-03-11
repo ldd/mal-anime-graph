@@ -5,14 +5,19 @@ const buildAnimeEntry = ({
   episodesWatched = "",
   timesWatched = 1,
   score = 0,
-  status = watching
-}) => `
+  status = watching,
+  tags = "",
+  // storage = "",
+  // priority = "",
+  watchStartDate = "0000-00-00",
+  watchEndDate = "0000-00-00"
+} = {}) => `
 <anime>
   <series_animedb_id>${id}</series_animedb_id>
   <my_id>0</my_id>
   <my_watched_episodes>${episodesWatched}</my_watched_episodes>
-  <my_start_date>0000-00-00</my_start_date>
-  <my_finish_date>0000-00-00</my_finish_date>
+  <my_start_date>${watchStartDate}</my_start_date>
+  <my_finish_date>${watchEndDate}</my_finish_date>
   <my_rated></my_rated>
   <my_score>${Math.round(score)}</my_score>
   <my_dvd></my_dvd>
@@ -21,7 +26,7 @@ const buildAnimeEntry = ({
   <my_comments><![CDATA[]]></my_comments>
   <my_times_watched>${Math.max(0, timesWatched - 1)}</my_times_watched>
   <my_rewatch_value></my_rewatch_value>
-  <my_tags><![CDATA[]]></my_tags>
+  <my_tags><![CDATA[${tags}]]></my_tags>
   <my_rewatching>0</my_rewatching>
   <my_rewatching_ep>0</my_rewatching_ep>
   <update_on_import>1</update_on_import>

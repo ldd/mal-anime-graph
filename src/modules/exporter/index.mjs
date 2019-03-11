@@ -24,6 +24,18 @@ export function exportFile({ userId, data = [], filename } = {}) {
   saveFile({ data: xmlString, filename });
 }
 
+// entry is the base object to be expanded
+// and overwritten with newData's data
+function mergeEntry(entry, newData) {
+  return {
+    ...entry,
+    episodesWatched: newData.episodesWatched || entry.episodesWatched,
+    score: newData.score || entry.score,
+    watchStartDate: newData.watchStartDate || entry.watchStartDate,
+    watchEndDate: newData.watchEndDate || entry.watchEndDate
+  };
+}
+
 export function getDifferences(malData, aniData = malData) {
   // find inconsistencies
   const malDic = {};
@@ -40,17 +52,16 @@ export function getDifferences(malData, aniData = malData) {
     if (malDic[entry.id]) {
       const otherEntry = malDic[entry.id];
 
-      // found differences in episodes watched
-      if (entry.episodesWatched < otherEntry.episodesWatched) {
-        malDifferences.push(entry);
-      } else if (entry.episodesWatched > otherEntry.episodesWatched) {
-        anilistDifferences.push(otherEntry);
-      }
-
       // found differences in score
       // TODO: prompt the user to include these values
       if (Math.abs(entry.score - otherEntry.score) > 0.1) {
-        malDifferences.push(entry);
+        anilistDifferences.push(otherEntry);
+        malDifferences.push(mergeEntry(otherEntry, entry));
+      }
+      // found differences in episodes watched
+      else if (entry.episodesWatched < otherEntry.episodesWatched) {
+        malDifferences.push(mergeEntry(otherEntry, entry));
+      } else if (entry.episodesWatched > otherEntry.episodesWatched) {
         anilistDifferences.push(otherEntry);
       }
     }
@@ -79,9 +90,9 @@ export async function exportUserListData(malId, aniId = malId) {
 
   const [malDiff, aniDiff] = getDifferences(malData, aniData);
   if (malDiff && malDiff.length) {
-    exportFile({ userId: malId, data: malDiff, filename: "for-mal.xml" });
+    exportFile({ userId: malId, data: malDiff, filename: "for-ani.xml" });
   }
   if (aniDiff && aniDiff.length) {
-    exportFile({ userId: aniId, data: malDiff, filename: "for-ani.xml" });
+    exportFile({ userId: aniId, data: aniDiff, filename: "for-mal.xml" });
   }
 }
