@@ -1,4 +1,6 @@
 import { html } from "https://unpkg.com/lit-html@1.0.0/lit-html.js?module";
+import { ifDefined } from "https://unpkg.com/lit-html@1.0.0/directives/if-defined.js?module";
+import { malStatuses } from "../../modules/providers/constants.mjs";
 
 export const statusPickerTemplate = ({ state = {}, clickHandler } = {}) => html`
     <div class="column">
@@ -8,14 +10,14 @@ export const statusPickerTemplate = ({ state = {}, clickHandler } = {}) => html`
               <div class="field">
                 <input
                   class="is-checkradio has-no-border"
-                  id="exampleCheckboxNoBorderDefault"
+                  id="${`reconciler-status-${status}-checkbox`}"
                   type="checkbox"
                   name="exampleCheckboxNoBorderDefault"
-                  checked="${isChecked}"
+                  checked="${ifDefined(isChecked ? "checked" : undefined)}"
                   @click=${() => clickHandler(status, isChecked)}
                 />
-                <label for="exampleCheckboxNoBorderDefault">
-                  ${status}
+                <label for="${`reconciler-status-${status}-checkbox`}">
+                  ${malStatuses[status]}
                 </label>
               </div>
             `

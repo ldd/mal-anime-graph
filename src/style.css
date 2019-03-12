@@ -20,3 +20,7 @@
   margin-left: calc(100vw - 250px - 0.5em);
   z-index: 9;
 }
+
+.field > label {
+  user-select: none;
+}
