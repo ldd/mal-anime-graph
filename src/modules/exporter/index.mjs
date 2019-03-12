@@ -8,18 +8,21 @@ import {
 } from "../../templates/common/notification.mjs";
 
 // https://stackoverflow.com/a/30832210
-function saveFile({ data, filename = "list.xml", type = "text/xml" } = {}) {
+// note: a is explicitly not removed to guarantee compatibility with some browsers
+const a = document.createElement("a");
+a.style = "display:none";
+
+function saveFile({
+  data,
+  filename = "list.xml",
+  type = "text/plain;charset=utf-8"
+} = {}) {
   const file = new Blob([data], { type });
-  const a = document.createElement("a");
   const url = URL.createObjectURL(file);
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
-  setTimeout(() => {
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }, 0);
 }
 
 export function exportFile({ userId, data = [], filename } = {}) {
