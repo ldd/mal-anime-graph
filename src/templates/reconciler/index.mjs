@@ -36,12 +36,14 @@ const submitButtonTemplate = state =>
           if (aniElement) aniElement.disabled = true;
         }
         event.target.classList.add("is-loading");
-        exportUserListData(malUsername, aniUsername).then(() => {
-          event.target.classList.remove("is-loading");
-          if (commonElement) commonElement.disabled = false;
-          if (malElement) malElement.disabled = false;
-          if (aniElement) aniElement.disabled = false;
-        });
+        exportUserListData(malUsername, aniUsername, state.statuses).then(
+          () => {
+            event.target.classList.remove("is-loading");
+            if (commonElement) commonElement.disabled = false;
+            if (malElement) malElement.disabled = false;
+            if (aniElement) aniElement.disabled = false;
+          }
+        );
       }
     },
     state

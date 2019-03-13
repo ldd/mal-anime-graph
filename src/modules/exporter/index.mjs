@@ -1,7 +1,11 @@
 import { malXMLString } from "./malExporter.mjs";
-import { processUserData as processMalUserData } from "../providers/jikanUserList.mjs";
-import { processUserData as processAniUserData } from "../providers/anilistUserList.mjs";
-import { watching, aniStatuses } from "../providers/constants.mjs";
+import { processUserData as processMal } from "../providers/jikanUserList.mjs";
+import { processUserData as processAni } from "../providers/anilistUserList.mjs";
+import {
+  aniStatuses,
+  jikanStatuses,
+  reverseMalStatuses
+} from "../providers/constants.mjs";
 import {
   updateNotification,
   updateNotificationDanger
@@ -79,27 +83,45 @@ export function getDifferences(malData, aniData = malData) {
   return differences;
 }
 
-export async function exportUserListData(malId, aniId = malId) {
+export async function exportUserListData(malId, aniId = malId, statuses) {
+  // use a simple strategy: if only 1 status is selected, just process that one
+  // otherwise, process all and filter out the ones you don't need!
+  const selectedStatuses = Object.entries(statuses).filter(
+    ([, isActive]) => isActive
+  );
+  let status = null;
+  if (selectedStatuses.length === 1) {
+    [[status]] = selectedStatuses;
+  }
   updateNotification({ length: 0, expectedLength: 2 });
-  const promiseMalData = processMalUserData({
+  const promisedMalData = processMal({
     userId: malId,
-    status: watching
+    status: jikanStatuses[status]
   });
-  const promisedAniData = processAniUserData({
+  const promisedAniData = processAni({
     userId: aniId,
-    status: aniStatuses.watching
+    status: aniStatuses[status]
   });
-  const aniData = await promisedAniData;
+  let aniData = await promisedAniData;
   if (aniData && aniData.length) {
     updateNotification({ length: 1, expectedLength: 2 });
   } else {
     updateNotificationDanger({ text: "No user data found =/ " });
   }
-  const malData = await promiseMalData;
+  let malData = await promisedMalData;
   if (malData && malData.length) {
     updateNotification({ length: 2, expectedLength: 2 });
   } else {
     updateNotificationDanger({ text: "No user data found =/ " });
+  }
+  // filter out statuses we talked about earlier
+  if (selectedStatuses.length > 1) {
+    aniData = aniData.filter(
+      ({ status: animeStatus }) => statuses[reverseMalStatuses[animeStatus]]
+    );
+    malData = malData.filter(
+      ({ status: animeStatus }) => statuses[reverseMalStatuses[animeStatus]]
+    );
   }
 
   const [malDiff, aniDiff] = getDifferences(malData, aniData);
