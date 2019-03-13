@@ -12,6 +12,7 @@ import {
 
 // functionality
 import { exportUserListData } from "../../modules/exporter/index.mjs";
+import { malStatusesDic } from "../../modules/providers/constants.mjs";
 
 const submitButtonTemplate = state =>
   buttonTemplate(
@@ -53,7 +54,7 @@ export function addReconciler(
       { text: "MAL", value: undefined },
       { text: "ANILIST", value: undefined }
     ],
-    statuses: { Watching: true }
+    statuses: malStatusesDic
   }
 ) {
   const parent = getElement("reconciler-hero", "div", "hero-body");

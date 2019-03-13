@@ -13,6 +13,19 @@ export const malStatuses = {
   onHold
 };
 
+export const reverseMalStatuses = {
+  Watching: "watching",
+  "Plan to Watch": "planToWatch",
+  Completed: "completed",
+  Dropped: "dropped",
+  "On Hold": "onHold"
+};
+
+export const malStatusesDic = Object.keys(malStatuses).reduce(
+  (dic, statusKey) => ({ ...dic, [statusKey]: statusKey === "watching" }),
+  {}
+);
+
 export const jikanStatuses = {
   [watching]: "watching",
   [planToWatch]: "plantowatch",
